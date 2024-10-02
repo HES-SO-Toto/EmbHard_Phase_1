@@ -1,0 +1,9 @@
+19:37:37 **** Build of configuration Nios II for project led_counter ****
+make all 
+Info: Building ../led_counter_bsp/
+D:/FPGA/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../led_counter_bsp/
+[BSP build complete]
+[led_counter build complete]
+
+19:37:38 Build Finished (took 757ms)
+
