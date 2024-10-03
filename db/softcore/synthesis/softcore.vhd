@@ -402,11 +402,6 @@ architecture rtl of softcore is
 	signal mm_interconnect_0_altpll_0_pll_slave_read                     : std_logic;                     -- mm_interconnect_0:altpll_0_pll_slave_read -> altpll_0:read
 	signal mm_interconnect_0_altpll_0_pll_slave_write                    : std_logic;                     -- mm_interconnect_0:altpll_0_pll_slave_write -> altpll_0:write
 	signal mm_interconnect_0_altpll_0_pll_slave_writedata                : std_logic_vector(31 downto 0); -- mm_interconnect_0:altpll_0_pll_slave_writedata -> altpll_0:writedata
-	signal mm_interconnect_0_leds_s1_chipselect                          : std_logic;                     -- mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
-	signal mm_interconnect_0_leds_s1_readdata                            : std_logic_vector(31 downto 0); -- LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
-	signal mm_interconnect_0_leds_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDs_s1_address -> LEDs:address
-	signal mm_interconnect_0_leds_s1_write                               : std_logic;                     -- mm_interconnect_0:LEDs_s1_write -> mm_interconnect_0_leds_s1_write:in
-	signal mm_interconnect_0_leds_s1_writedata                           : std_logic_vector(31 downto 0); -- mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
 	signal mm_interconnect_0_sdram_controller_s1_chipselect              : std_logic;                     -- mm_interconnect_0:SDRAM_controller_s1_chipselect -> SDRAM_controller:az_cs
 	signal mm_interconnect_0_sdram_controller_s1_readdata                : std_logic_vector(15 downto 0); -- SDRAM_controller:za_data -> mm_interconnect_0:SDRAM_controller_s1_readdata
 	signal mm_interconnect_0_sdram_controller_s1_waitrequest             : std_logic;                     -- SDRAM_controller:za_waitrequest -> mm_interconnect_0:SDRAM_controller_s1_waitrequest
@@ -421,8 +416,13 @@ architecture rtl of softcore is
 	signal mm_interconnect_0_timer_0_s1_address                          : std_logic_vector(2 downto 0);  -- mm_interconnect_0:timer_0_s1_address -> timer_0:address
 	signal mm_interconnect_0_timer_0_s1_write                            : std_logic;                     -- mm_interconnect_0:timer_0_s1_write -> mm_interconnect_0_timer_0_s1_write:in
 	signal mm_interconnect_0_timer_0_s1_writedata                        : std_logic_vector(15 downto 0); -- mm_interconnect_0:timer_0_s1_writedata -> timer_0:writedata
-	signal irq_mapper_receiver0_irq                                      : std_logic;                     -- jtag_uart:av_irq -> irq_mapper:receiver0_irq
-	signal irq_mapper_receiver1_irq                                      : std_logic;                     -- timer_0:irq -> irq_mapper:receiver1_irq
+	signal mm_interconnect_0_leds_s1_chipselect                          : std_logic;                     -- mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
+	signal mm_interconnect_0_leds_s1_readdata                            : std_logic_vector(31 downto 0); -- LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
+	signal mm_interconnect_0_leds_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDs_s1_address -> LEDs:address
+	signal mm_interconnect_0_leds_s1_write                               : std_logic;                     -- mm_interconnect_0:LEDs_s1_write -> mm_interconnect_0_leds_s1_write:in
+	signal mm_interconnect_0_leds_s1_writedata                           : std_logic_vector(31 downto 0); -- mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
+	signal irq_mapper_receiver0_irq                                      : std_logic;                     -- timer_0:irq -> irq_mapper:receiver0_irq
+	signal irq_mapper_receiver1_irq                                      : std_logic;                     -- jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	signal cpu_irq_irq                                                   : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> CPU:irq
 	signal rst_controller_reset_out_reset                                : std_logic;                     -- rst_controller:reset_out -> [irq_mapper:reset, mm_interconnect_0:CPU_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_reset_out_reset_req                            : std_logic;                     -- rst_controller:reset_req -> [CPU:reset_req, rst_translator:reset_req_in]
@@ -431,11 +431,11 @@ architecture rtl of softcore is
 	signal reset_reset_n_ports_inv                                       : std_logic;                     -- reset_reset_n:inv -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
 	signal mm_interconnect_0_jtag_uart_avalon_jtag_slave_read_ports_inv  : std_logic;                     -- mm_interconnect_0_jtag_uart_avalon_jtag_slave_read:inv -> jtag_uart:av_read_n
 	signal mm_interconnect_0_jtag_uart_avalon_jtag_slave_write_ports_inv : std_logic;                     -- mm_interconnect_0_jtag_uart_avalon_jtag_slave_write:inv -> jtag_uart:av_write_n
-	signal mm_interconnect_0_leds_s1_write_ports_inv                     : std_logic;                     -- mm_interconnect_0_leds_s1_write:inv -> LEDs:write_n
 	signal mm_interconnect_0_sdram_controller_s1_read_ports_inv          : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_read:inv -> SDRAM_controller:az_rd_n
 	signal mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv    : std_logic_vector(1 downto 0);  -- mm_interconnect_0_sdram_controller_s1_byteenable:inv -> SDRAM_controller:az_be_n
 	signal mm_interconnect_0_sdram_controller_s1_write_ports_inv         : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_write:inv -> SDRAM_controller:az_wr_n
 	signal mm_interconnect_0_timer_0_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_timer_0_s1_write:inv -> timer_0:write_n
+	signal mm_interconnect_0_leds_s1_write_ports_inv                     : std_logic;                     -- mm_interconnect_0_leds_s1_write:inv -> LEDs:write_n
 	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> [CPU:reset_n, LEDs:reset_n, SDRAM_controller:reset_n, jtag_uart:rst_n, sysid_qsys_0:reset_n, timer_0:reset_n]
 
 begin
@@ -544,7 +544,7 @@ begin
 			av_write_n     => mm_interconnect_0_jtag_uart_avalon_jtag_slave_write_ports_inv, --                  .write_n
 			av_writedata   => mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata,       --                  .writedata
 			av_waitrequest => mm_interconnect_0_jtag_uart_avalon_jtag_slave_waitrequest,     --                  .waitrequest
-			av_irq         => irq_mapper_receiver0_irq                                       --               irq.irq
+			av_irq         => irq_mapper_receiver1_irq                                       --               irq.irq
 		);
 
 	sysid_qsys_0 : component softcore_sysid_qsys_0
@@ -564,7 +564,7 @@ begin
 			readdata   => mm_interconnect_0_timer_0_s1_readdata,        --      .readdata
 			chipselect => mm_interconnect_0_timer_0_s1_chipselect,      --      .chipselect
 			write_n    => mm_interconnect_0_timer_0_s1_write_ports_inv, --      .write_n
-			irq        => irq_mapper_receiver1_irq                      --   irq.irq
+			irq        => irq_mapper_receiver0_irq                      --   irq.irq
 		);
 
 	mm_interconnect_0 : component softcore_mm_interconnect_0
@@ -775,8 +775,6 @@ begin
 
 	mm_interconnect_0_jtag_uart_avalon_jtag_slave_write_ports_inv <= not mm_interconnect_0_jtag_uart_avalon_jtag_slave_write;
 
-	mm_interconnect_0_leds_s1_write_ports_inv <= not mm_interconnect_0_leds_s1_write;
-
 	mm_interconnect_0_sdram_controller_s1_read_ports_inv <= not mm_interconnect_0_sdram_controller_s1_read;
 
 	mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv <= not mm_interconnect_0_sdram_controller_s1_byteenable;
@@ -784,6 +782,8 @@ begin
 	mm_interconnect_0_sdram_controller_s1_write_ports_inv <= not mm_interconnect_0_sdram_controller_s1_write;
 
 	mm_interconnect_0_timer_0_s1_write_ports_inv <= not mm_interconnect_0_timer_0_s1_write;
+
+	mm_interconnect_0_leds_s1_write_ports_inv <= not mm_interconnect_0_leds_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 
