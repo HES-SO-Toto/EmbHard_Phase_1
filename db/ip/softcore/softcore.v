@@ -56,11 +56,6 @@ module softcore (
 	wire         mm_interconnect_0_altpll_0_pll_slave_read;                 // mm_interconnect_0:altpll_0_pll_slave_read -> altpll_0:read
 	wire         mm_interconnect_0_altpll_0_pll_slave_write;                // mm_interconnect_0:altpll_0_pll_slave_write -> altpll_0:write
 	wire  [31:0] mm_interconnect_0_altpll_0_pll_slave_writedata;            // mm_interconnect_0:altpll_0_pll_slave_writedata -> altpll_0:writedata
-	wire         mm_interconnect_0_leds_s1_chipselect;                      // mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
-	wire  [31:0] mm_interconnect_0_leds_s1_readdata;                        // LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
-	wire   [1:0] mm_interconnect_0_leds_s1_address;                         // mm_interconnect_0:LEDs_s1_address -> LEDs:address
-	wire         mm_interconnect_0_leds_s1_write;                           // mm_interconnect_0:LEDs_s1_write -> LEDs:write_n
-	wire  [31:0] mm_interconnect_0_leds_s1_writedata;                       // mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
 	wire         mm_interconnect_0_sdram_controller_s1_chipselect;          // mm_interconnect_0:SDRAM_controller_s1_chipselect -> SDRAM_controller:az_cs
 	wire  [15:0] mm_interconnect_0_sdram_controller_s1_readdata;            // SDRAM_controller:za_data -> mm_interconnect_0:SDRAM_controller_s1_readdata
 	wire         mm_interconnect_0_sdram_controller_s1_waitrequest;         // SDRAM_controller:za_waitrequest -> mm_interconnect_0:SDRAM_controller_s1_waitrequest
@@ -75,8 +70,13 @@ module softcore (
 	wire   [2:0] mm_interconnect_0_timer_0_s1_address;                      // mm_interconnect_0:timer_0_s1_address -> timer_0:address
 	wire         mm_interconnect_0_timer_0_s1_write;                        // mm_interconnect_0:timer_0_s1_write -> timer_0:write_n
 	wire  [15:0] mm_interconnect_0_timer_0_s1_writedata;                    // mm_interconnect_0:timer_0_s1_writedata -> timer_0:writedata
-	wire         irq_mapper_receiver0_irq;                                  // jtag_uart:av_irq -> irq_mapper:receiver0_irq
-	wire         irq_mapper_receiver1_irq;                                  // timer_0:irq -> irq_mapper:receiver1_irq
+	wire         mm_interconnect_0_leds_s1_chipselect;                      // mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
+	wire  [31:0] mm_interconnect_0_leds_s1_readdata;                        // LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
+	wire   [1:0] mm_interconnect_0_leds_s1_address;                         // mm_interconnect_0:LEDs_s1_address -> LEDs:address
+	wire         mm_interconnect_0_leds_s1_write;                           // mm_interconnect_0:LEDs_s1_write -> LEDs:write_n
+	wire  [31:0] mm_interconnect_0_leds_s1_writedata;                       // mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
+	wire         irq_mapper_receiver0_irq;                                  // timer_0:irq -> irq_mapper:receiver0_irq
+	wire         irq_mapper_receiver1_irq;                                  // jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	wire  [31:0] cpu_irq_irq;                                               // irq_mapper:sender_irq -> CPU:irq
 	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [CPU:reset_n, LEDs:reset_n, SDRAM_controller:reset_n, irq_mapper:reset, jtag_uart:rst_n, mm_interconnect_0:CPU_reset_reset_bridge_in_reset_reset, rst_translator:in_reset, sysid_qsys_0:reset_n, timer_0:reset_n]
 	wire         rst_controller_reset_out_reset_req;                        // rst_controller:reset_req -> [CPU:reset_req, rst_translator:reset_req_in]
@@ -182,7 +182,7 @@ module softcore (
 		.av_write_n     (~mm_interconnect_0_jtag_uart_avalon_jtag_slave_write),      //                  .write_n
 		.av_writedata   (mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata),   //                  .writedata
 		.av_waitrequest (mm_interconnect_0_jtag_uart_avalon_jtag_slave_waitrequest), //                  .waitrequest
-		.av_irq         (irq_mapper_receiver0_irq)                                   //               irq.irq
+		.av_irq         (irq_mapper_receiver1_irq)                                   //               irq.irq
 	);
 
 	softcore_sysid_qsys_0 sysid_qsys_0 (
@@ -200,7 +200,7 @@ module softcore (
 		.readdata   (mm_interconnect_0_timer_0_s1_readdata),   //      .readdata
 		.chipselect (mm_interconnect_0_timer_0_s1_chipselect), //      .chipselect
 		.write_n    (~mm_interconnect_0_timer_0_s1_write),     //      .write_n
-		.irq        (irq_mapper_receiver1_irq)                 //   irq.irq
+		.irq        (irq_mapper_receiver0_irq)                 //   irq.irq
 	);
 
 	softcore_mm_interconnect_0 mm_interconnect_0 (
