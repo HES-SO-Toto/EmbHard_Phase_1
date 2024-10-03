@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="softcore" kind="softcore" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2024.10.02.19:24:47 -->
+ <!-- 2024.10.03.07:25:51 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1727889887</value>
+  <value>1727933151</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1710,7 +1710,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timer_0.s1' start='0x2001020' end='0x2001040' type='altera_avalon_timer.s1' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2436,14 +2436,6 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>LEDs</moduleName>
-    <slaveName>s1</slaveName>
-    <name>LEDs.s1</name>
-    <baseAddress>33558592</baseAddress>
-    <span>16</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
     <moduleName>SDRAM_controller</moduleName>
     <slaveName>s1</slaveName>
     <name>SDRAM_controller.s1</name>
@@ -2457,6 +2449,14 @@ parameters are a RESULT of the module parameters. -->
     <name>timer_0.s1</name>
     <baseAddress>33558560</baseAddress>
     <span>32</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>LEDs</moduleName>
+    <slaveName>s1</slaveName>
+    <name>LEDs.s1</name>
+    <baseAddress>33558592</baseAddress>
+    <span>16</span>
    </memoryBlock>
   </interface>
   <interface name="instruction_master" kind="avalon_master" version="18.1">
@@ -2767,14 +2767,6 @@ parameters are a RESULT of the module parameters. -->
     <baseAddress>16777216</baseAddress>
     <span>16777216</span>
    </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>timer_0</moduleName>
-    <slaveName>s1</slaveName>
-    <name>timer_0.s1</name>
-    <baseAddress>33558560</baseAddress>
-    <span>32</span>
-   </memoryBlock>
   </interface>
   <interface name="irq" kind="interrupt_receiver" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -2846,17 +2838,17 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>jtag_uart</moduleName>
-    <slaveName>irq</slaveName>
-    <name>jtag_uart.irq</name>
-    <interruptNumber>0</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
     <moduleName>timer_0</moduleName>
     <slaveName>irq</slaveName>
     <name>timer_0.irq</name>
     <interruptNumber>1</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart</moduleName>
+    <slaveName>irq</slaveName>
+    <name>jtag_uart.irq</name>
+    <interruptNumber>0</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="18.1">
@@ -8142,7 +8134,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1727889887</value>
+   <value>1727933151</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -8162,7 +8154,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1727889887</value>
+   <value>1727933151</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -8178,7 +8170,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1727889887</value>
+   <value>1727933151</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -9622,57 +9614,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>pll_slave</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.data_master/LEDs.s1"
-   kind="avalon"
-   version="18.1"
-   start="CPU.data_master"
-   end="LEDs.s1">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x02001040</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>CPU</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>LEDs</endModule>
-  <endConnectionPoint>s1</endConnectionPoint>
- </connection>
- <connection
    name="CPU.data_master/SDRAM_controller.s1"
    kind="avalon"
    version="18.1"
@@ -9775,6 +9716,57 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
+   name="CPU.data_master/LEDs.s1"
+   kind="avalon"
+   version="18.1"
+   start="CPU.data_master"
+   end="LEDs.s1">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x02001040</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>CPU</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>LEDs</endModule>
+  <endConnectionPoint>s1</endConnectionPoint>
+ </connection>
+ <connection
    name="CPU.instruction_master/CPU.debug_mem_slave"
    kind="avalon"
    version="18.1"
@@ -9874,57 +9866,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>CPU</startModule>
   <startConnectionPoint>instruction_master</startConnectionPoint>
   <endModule>SDRAM_controller</endModule>
-  <endConnectionPoint>s1</endConnectionPoint>
- </connection>
- <connection
-   name="CPU.instruction_master/timer_0.s1"
-   kind="avalon"
-   version="18.1"
-   start="CPU.instruction_master"
-   end="timer_0.s1">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x02001020</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>CPU</startModule>
-  <startConnectionPoint>instruction_master</startConnectionPoint>
-  <endModule>timer_0</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
@@ -10117,41 +10058,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>inclk_interface</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.irq/jtag_uart.irq"
-   kind="interrupt"
-   version="18.1"
-   start="CPU.irq"
-   end="jtag_uart.irq">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>CPU</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>jtag_uart</endModule>
-  <endConnectionPoint>irq</endConnectionPoint>
- </connection>
- <connection
    name="CPU.irq/timer_0.irq"
    kind="interrupt"
    version="18.1"
@@ -10184,6 +10090,41 @@ parameters are a RESULT of the module parameters. -->
   <startModule>CPU</startModule>
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>timer_0</endModule>
+  <endConnectionPoint>irq</endConnectionPoint>
+ </connection>
+ <connection
+   name="CPU.irq/jtag_uart.irq"
+   kind="interrupt"
+   version="18.1"
+   start="CPU.irq"
+   end="jtag_uart.irq">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>0</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>CPU</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>jtag_uart</endModule>
   <endConnectionPoint>irq</endConnectionPoint>
  </connection>
  <connection
@@ -10741,7 +10682,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>10</instanceCount>
+  <instanceCount>9</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

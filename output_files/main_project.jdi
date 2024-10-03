@@ -1,6 +1,6 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="245b7c14096cc5e2f26f"/>
+    <hash md5_digest_80b="44c57ae00f86d1e3e855"/>
   </project>
   <file_info>
     <file device="EP4CE30F23C7" path="main_project_time_limited.sof" usercode="0xFFFFFFFF"/>
@@ -140,7 +140,7 @@
   <sld_infos>
     <sld_info hpath="softcore:inst" name="inst">
       <assignment_values>
-        <assignment_value text="QSYS_NAME softcore HAS_SOPCINFO 1 GENERATION_ID 1727889961"/>
+        <assignment_value text="QSYS_NAME softcore HAS_SOPCINFO 1 GENERATION_ID 1727968022"/>
       </assignment_values>
       <parameters/>
     </sld_info>

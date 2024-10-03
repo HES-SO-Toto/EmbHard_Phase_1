@@ -336,7 +336,7 @@ refer to the applicable agreement for further details.
 		(pt 480 72)
 		(output)
 		(text "sram_clk_clk" (rect 0 0 73 14)(font "Arial" (font_size 8)))
-		(text "sram_clk_clk" (rect 414 61 487 75)(font "Arial" (font_size 8)))
+		(text "sram_clk_clk" (rect 414 61 475 75)(font "Arial" (font_size 8)))
 		(line (pt 480 72)(pt 272 72))
 	)
 	(port
