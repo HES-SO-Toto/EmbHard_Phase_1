@@ -2,25 +2,25 @@
 # 
 preplace inst softcore.CPU.cpu -pg 1
 preplace inst softcore.clk_0 -pg 1 -lvl 1 -y 530
-preplace inst softcore.SDRAM_controller -pg 1 -lvl 2 -y 430
+preplace inst softcore.SDRAM_controller -pg 1 -lvl 2 -y 410
 preplace inst softcore.CPU -pg 1 -lvl 1 -y 120
 preplace inst softcore -pg 1 -lvl 1 -y 40 -regy -20
-preplace inst softcore.LEDs -pg 1 -lvl 2 -y 310
 preplace inst softcore.altpll_0 -pg 1 -lvl 2 -y 530
 preplace inst softcore.timer_0 -pg 1 -lvl 2 -y 130
 preplace inst softcore.CPU.reset_bridge -pg 1
 preplace inst softcore.jtag_uart -pg 1 -lvl 2 -y 30
+preplace inst softcore.GPIO -pg 1 -lvl 3 -y 310
 preplace inst softcore.sysid_qsys_0 -pg 1 -lvl 2 -y 230
 preplace inst softcore.CPU.clock_bridge -pg 1
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)softcore.gpio_external,(SLAVE)GPIO.conduit_end) 1 0 3 NJ 360 NJ 360 NJ
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)SDRAM_controller.wire,(SLAVE)softcore.sdram_ctrl_wire) 1 0 2 NJ 480 NJ
 preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)softcore.reset,(SLAVE)clk_0.clk_in_reset) 1 0 1 NJ
 preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)clk_0.clk_in,(SLAVE)softcore.clk) 1 0 1 NJ
-preplace netloc INTERCONNECT<net_container>softcore</net_container>(SLAVE)jtag_uart.reset,(SLAVE)CPU.reset,(SLAVE)altpll_0.inclk_interface_reset,(MASTER)CPU.debug_reset_request,(SLAVE)sysid_qsys_0.reset,(SLAVE)timer_0.reset,(SLAVE)LEDs.reset,(SLAVE)SDRAM_controller.reset,(MASTER)clk_0.clk_reset) 1 0 2 240 280 620
-preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)LEDs.external_connection,(SLAVE)softcore.leds_external_connections) 1 0 2 NJ 340 NJ
-preplace netloc EXPORT<net_container>softcore</net_container>(MASTER)softcore.sram_clk,(MASTER)altpll_0.c2) 1 2 1 N
-preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)softcore.sdram_ctrl_wire,(SLAVE)SDRAM_controller.wire) 1 0 2 NJ 500 NJ
-preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)timer_0.irq,(SLAVE)jtag_uart.irq,(MASTER)CPU.irq) 1 1 1 640
-preplace netloc POINT_TO_POINT<net_container>softcore</net_container>(MASTER)clk_0.clk,(SLAVE)altpll_0.inclk_interface) 1 1 1 N
-preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)timer_0.clk,(SLAVE)SDRAM_controller.clk,(SLAVE)LEDs.clk,(SLAVE)jtag_uart.clk,(SLAVE)CPU.clk,(SLAVE)sysid_qsys_0.clk,(MASTER)altpll_0.c0) 1 0 3 220 260 660 420 900
-preplace netloc INTERCONNECT<net_container>softcore</net_container>(SLAVE)altpll_0.pll_slave,(SLAVE)CPU.debug_mem_slave,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)LEDs.s1,(MASTER)CPU.instruction_master,(SLAVE)sysid_qsys_0.control_slave,(MASTER)CPU.data_master,(SLAVE)timer_0.s1,(SLAVE)SDRAM_controller.s1) 1 0 2 200 300 600
-levelinfo -pg 1 0 170 1000
-levelinfo -hier softcore 180 360 710 920
+preplace netloc INTERCONNECT<net_container>softcore</net_container>(SLAVE)CPU.debug_mem_slave,(MASTER)CPU.data_master,(SLAVE)GPIO.avalon_slave_0,(SLAVE)timer_0.s1,(SLAVE)altpll_0.pll_slave,(SLAVE)jtag_uart.avalon_jtag_slave,(MASTER)CPU.instruction_master,(SLAVE)sysid_qsys_0.control_slave,(SLAVE)SDRAM_controller.s1) 1 0 3 140 300 540 400 840
+preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)GPIO.clock,(MASTER)altpll_0.c0,(SLAVE)CPU.clk,(SLAVE)jtag_uart.clk,(SLAVE)SDRAM_controller.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)timer_0.clk) 1 0 3 160 260 600 380 880
+preplace netloc INTERCONNECT<net_container>softcore</net_container>(MASTER)clk_0.clk_reset,(SLAVE)SDRAM_controller.reset,(SLAVE)jtag_uart.reset,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)CPU.reset,(MASTER)CPU.debug_reset_request,(SLAVE)GPIO.reset_sink,(SLAVE)sysid_qsys_0.reset,(SLAVE)timer_0.reset) 1 0 3 180 280 560 340 860
+preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)timer_0.irq,(MASTER)CPU.irq,(SLAVE)jtag_uart.irq) 1 1 1 580
+preplace netloc EXPORT<net_container>softcore</net_container>(MASTER)softcore.sram_clk,(MASTER)altpll_0.c2) 1 2 2 NJ 560 NJ
+preplace netloc POINT_TO_POINT<net_container>softcore</net_container>(SLAVE)altpll_0.inclk_interface,(MASTER)clk_0.clk) 1 1 1 N
+levelinfo -pg 1 0 110 1110
+levelinfo -hier softcore 120 300 650 910 1030

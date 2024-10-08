@@ -1,7 +1,7 @@
 
 module softcore (
 	clk_clk,
-	leds_external_connections_export,
+	gpio_external_export,
 	reset_reset_n,
 	sdram_ctrl_wire_addr,
 	sdram_ctrl_wire_ba,
@@ -15,7 +15,7 @@ module softcore (
 	sram_clk_clk);	
 
 	input		clk_clk;
-	output	[7:0]	leds_external_connections_export;
+	inout	[31:0]	gpio_external_export;
 	input		reset_reset_n;
 	output	[11:0]	sdram_ctrl_wire_addr;
 	output	[1:0]	sdram_ctrl_wire_ba;

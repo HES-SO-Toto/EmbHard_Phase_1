@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'softcore'
  * SOPC Builder design path: ../../softcore.sopcinfo
  *
- * Generated: Thu Oct 03 07:33:51 CEST 2024
+ * Generated: Tue Oct 08 21:40:27 CEST 2024
  */
 
 /*
@@ -143,38 +143,25 @@
 
 #define __ALTERA_AVALON_JTAG_UART
 #define __ALTERA_AVALON_NEW_SDRAM_CONTROLLER
-#define __ALTERA_AVALON_PIO
 #define __ALTERA_AVALON_SYSID_QSYS
 #define __ALTERA_AVALON_TIMER
 #define __ALTERA_NIOS2_GEN2
 #define __ALTPLL
+#define __GPIO
 
 
 /*
- * LEDs configuration
+ * GPIO configuration
  *
  */
 
-#define ALT_MODULE_CLASS_LEDs altera_avalon_pio
-#define LEDS_BASE 0x2001040
-#define LEDS_BIT_CLEARING_EDGE_REGISTER 0
-#define LEDS_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define LEDS_CAPTURE 0
-#define LEDS_DATA_WIDTH 8
-#define LEDS_DO_TEST_BENCH_WIRING 0
-#define LEDS_DRIVEN_SIM_VALUE 0
-#define LEDS_EDGE_TYPE "NONE"
-#define LEDS_FREQ 50000000
-#define LEDS_HAS_IN 0
-#define LEDS_HAS_OUT 1
-#define LEDS_HAS_TRI 0
-#define LEDS_IRQ -1
-#define LEDS_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define LEDS_IRQ_TYPE "NONE"
-#define LEDS_NAME "/dev/LEDs"
-#define LEDS_RESET_VALUE 0
-#define LEDS_SPAN 16
-#define LEDS_TYPE "altera_avalon_pio"
+#define ALT_MODULE_CLASS_GPIO GPIO
+#define GPIO_BASE 0x2001020
+#define GPIO_IRQ -1
+#define GPIO_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define GPIO_NAME "/dev/GPIO"
+#define GPIO_SPAN 32
+#define GPIO_TYPE "GPIO"
 
 
 /*
@@ -257,7 +244,7 @@
  *
  */
 
-#define ALTPLL_0_BASE 0x2001050
+#define ALTPLL_0_BASE 0x2001070
 #define ALTPLL_0_IRQ -1
 #define ALTPLL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define ALTPLL_0_NAME "/dev/altpll_0"
@@ -284,7 +271,7 @@
 
 #define ALT_MODULE_CLASS_jtag_uart altera_avalon_jtag_uart
 #define JTAG_UART_BASE 0x2001068
-#define JTAG_UART_IRQ 0
+#define JTAG_UART_IRQ 1
 #define JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_NAME "/dev/jtag_uart"
 #define JTAG_UART_READ_DEPTH 64
@@ -307,7 +294,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1727933151
+#define SYSID_QSYS_0_TIMESTAMP 1728416144
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -318,21 +305,21 @@
 
 #define ALT_MODULE_CLASS_timer_0 altera_avalon_timer
 #define TIMER_0_ALWAYS_RUN 0
-#define TIMER_0_BASE 0x2001020
+#define TIMER_0_BASE 0x2001040
 #define TIMER_0_COUNTER_SIZE 32
 #define TIMER_0_FIXED_PERIOD 0
 #define TIMER_0_FREQ 50000000
-#define TIMER_0_IRQ 1
+#define TIMER_0_IRQ 0
 #define TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define TIMER_0_LOAD_VALUE 49999999
-#define TIMER_0_MULT 1.0
+#define TIMER_0_LOAD_VALUE 499999
+#define TIMER_0_MULT 0.001
 #define TIMER_0_NAME "/dev/timer_0"
-#define TIMER_0_PERIOD 1
-#define TIMER_0_PERIOD_UNITS "s"
+#define TIMER_0_PERIOD 10
+#define TIMER_0_PERIOD_UNITS "ms"
 #define TIMER_0_RESET_OUTPUT 0
 #define TIMER_0_SNAPSHOT 1
 #define TIMER_0_SPAN 32
-#define TIMER_0_TICKS_PER_SEC 1
+#define TIMER_0_TICKS_PER_SEC 100
 #define TIMER_0_TIMEOUT_PULSE_OUTPUT 0
 #define TIMER_0_TYPE "altera_avalon_timer"
 

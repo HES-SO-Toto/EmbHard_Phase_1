@@ -13,13 +13,22 @@
 #include <sys/alt_irq.h>
 #include <stdio.h>
 
+enum GPIO_REG {
+  DIR =0,
+  PIN =1,
+  PORT =2,
+  SET = 3,
+  CLR =4,
+  NONE = 5
+};
+
 void int_timer_interrupt(void);
 static void time_isr(void * context, alt_u32 id);
 
 int main()
 {
 	printf("Lets start counting\n");
-	IOWR_8DIRECT(LEDS_BASE,0,0);
+	IOWR(GPIO_BASE,DIR,0xFFFFFFFF); //Set all pin in out : 0ffset
 	int_timer_interrupt();
 	while(1);
 	return 0;
@@ -39,10 +48,10 @@ void int_timer_interrupt(void)
 
 static void time_isr(void * context, alt_u32 id)
 {
-	static int counter=0;
+	static long counter=0;
 	// clear interupt
 	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE,0);
 	counter++;
-	printf("counter 1s =%d\n",counter);
-	IOWR_8DIRECT(LEDS_BASE,0,counter);
+	printf("counter 1s =%lu\n",counter);
+	IOWR(GPIO_BASE,PORT,counter);
 }

@@ -4,8 +4,8 @@ Progress: Loading db/softcore.qsys
 Progress: Reading input file
 Progress: Adding CPU [altera_nios2_gen2 18.1]
 Progress: Parameterizing module CPU
-Progress: Adding LEDs [altera_avalon_pio 18.1]
-Progress: Parameterizing module LEDs
+Progress: Adding GPIO [GPIO 1.1]
+Progress: Parameterizing module GPIO
 Progress: Adding SDRAM_controller [altera_avalon_new_sdram_controller 18.1]
 Progress: Parameterizing module SDRAM_controller
 Progress: Adding altpll_0 [altpll 18.1]
@@ -35,8 +35,8 @@ Progress: Loading db/softcore.qsys
 Progress: Reading input file
 Progress: Adding CPU [altera_nios2_gen2 18.1]
 Progress: Parameterizing module CPU
-Progress: Adding LEDs [altera_avalon_pio 18.1]
-Progress: Parameterizing module LEDs
+Progress: Adding GPIO [GPIO 1.1]
+Progress: Parameterizing module GPIO
 Progress: Adding SDRAM_controller [altera_avalon_new_sdram_controller 18.1]
 Progress: Parameterizing module SDRAM_controller
 Progress: Adding altpll_0 [altpll 18.1]
@@ -58,25 +58,22 @@ Info: softcore.jtag_uart: JTAG UART IP input clock need to be at least double (2
 Info: softcore.sysid_qsys_0: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
 Info: softcore.sysid_qsys_0: Time stamp will be automatically updated when this component is generated.
 Info: softcore: Generating softcore "softcore" for QUARTUS_SYNTH
-Info: Inserting clock-crossing logic between cmd_demux.src3 and cmd_mux_003.sink0
-Info: Inserting clock-crossing logic between rsp_demux_003.src0 and rsp_mux.sink3
+Info: Inserting clock-crossing logic between cmd_demux.src4 and cmd_mux_004.sink0
+Info: Inserting clock-crossing logic between rsp_demux_004.src0 and rsp_mux.sink4
 Info: CPU: "softcore" instantiated altera_nios2_gen2 "CPU"
-Info: LEDs: Starting RTL generation for module 'softcore_LEDs'
-Info: LEDs:   Generation command is [exec D:/fpga/quartus/bin64/perl/bin/perl.exe -I D:/fpga/quartus/bin64/perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=softcore_LEDs --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0002_LEDs_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0002_LEDs_gen//softcore_LEDs_component_configuration.pl  --do_build_sim=0  ]
-Info: LEDs: Done RTL generation for module 'softcore_LEDs'
-Info: LEDs: "softcore" instantiated altera_avalon_pio "LEDs"
+Info: GPIO: "softcore" instantiated GPIO "GPIO"
 Info: SDRAM_controller: Starting RTL generation for module 'softcore_SDRAM_controller'
-Info: SDRAM_controller:   Generation command is [exec D:/fpga/quartus/bin64/perl/bin/perl.exe -I D:/fpga/quartus/bin64/perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=softcore_SDRAM_controller --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0003_SDRAM_controller_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0003_SDRAM_controller_gen//softcore_SDRAM_controller_component_configuration.pl  --do_build_sim=0  ]
+Info: SDRAM_controller:   Generation command is [exec D:/fpga/quartus/bin64/perl/bin/perl.exe -I D:/fpga/quartus/bin64/perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_new_sdram_controller/generate_rtl.pl --name=softcore_SDRAM_controller --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0003_SDRAM_controller_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0003_SDRAM_controller_gen//softcore_SDRAM_controller_component_configuration.pl  --do_build_sim=0  ]
 Info: SDRAM_controller: Done RTL generation for module 'softcore_SDRAM_controller'
 Info: SDRAM_controller: "softcore" instantiated altera_avalon_new_sdram_controller "SDRAM_controller"
 Info: altpll_0: "softcore" instantiated altpll "altpll_0"
 Info: jtag_uart: Starting RTL generation for module 'softcore_jtag_uart'
-Info: jtag_uart:   Generation command is [exec D:/fpga/quartus/bin64/perl/bin/perl.exe -I D:/fpga/quartus/bin64/perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=softcore_jtag_uart --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0006_jtag_uart_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0006_jtag_uart_gen//softcore_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart:   Generation command is [exec D:/fpga/quartus/bin64/perl/bin/perl.exe -I D:/fpga/quartus/bin64/perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=softcore_jtag_uart --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0006_jtag_uart_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0006_jtag_uart_gen//softcore_jtag_uart_component_configuration.pl  --do_build_sim=0  ]
 Info: jtag_uart: Done RTL generation for module 'softcore_jtag_uart'
 Info: jtag_uart: "softcore" instantiated altera_avalon_jtag_uart "jtag_uart"
 Info: sysid_qsys_0: "softcore" instantiated altera_avalon_sysid_qsys "sysid_qsys_0"
 Info: timer_0: Starting RTL generation for module 'softcore_timer_0'
-Info: timer_0:   Generation command is [exec D:/FPGA/quartus/bin64//perl/bin/perl.exe -I D:/FPGA/quartus/bin64//perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=softcore_timer_0 --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0008_timer_0_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0008_timer_0_gen//softcore_timer_0_component_configuration.pl  --do_build_sim=0  ]
+Info: timer_0:   Generation command is [exec D:/FPGA/quartus/bin64//perl/bin/perl.exe -I D:/FPGA/quartus/bin64//perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/common -I D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- D:/fpga/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=softcore_timer_0 --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0008_timer_0_gen/ --quartus_dir=D:/fpga/quartus --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0008_timer_0_gen//softcore_timer_0_component_configuration.pl  --do_build_sim=0  ]
 Info: timer_0: Done RTL generation for module 'softcore_timer_0'
 Info: timer_0: "softcore" instantiated altera_avalon_timer "timer_0"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
@@ -90,31 +87,31 @@ Info: mm_interconnect_0: "softcore" instantiated altera_mm_interconnect "mm_inte
 Info: irq_mapper: "softcore" instantiated altera_irq_mapper "irq_mapper"
 Info: rst_controller: "softcore" instantiated altera_reset_controller "rst_controller"
 Info: cpu: Starting RTL generation for module 'softcore_CPU_cpu'
-Info: cpu:   Generation command is [exec D:/FPGA/quartus/bin64//eperlcmd.exe -I D:/FPGA/quartus/bin64//perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=softcore_CPU_cpu --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0011_cpu_gen/ --quartus_bindir=D:/FPGA/quartus/bin64/ --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt9999_2511189447555388521.dir/0011_cpu_gen//softcore_CPU_cpu_processor_configuration.pl  --do_build_sim=0  ]
-Info: cpu: # 2024.10.03 07:09:45 (*) Starting Nios II generation
-Info: cpu: # 2024.10.03 07:09:45 (*)   Checking for plaintext license.
-Info: cpu: # 2024.10.03 07:09:46 (*)   Couldn't query license setup in Quartus directory D:/FPGA/quartus/bin64/
-Info: cpu: # 2024.10.03 07:09:46 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: cpu: # 2024.10.03 07:09:46 (*)   LM_LICENSE_FILE environment variable is empty
-Info: cpu: # 2024.10.03 07:09:46 (*)   Plaintext license not found.
-Info: cpu: # 2024.10.03 07:09:46 (*)   Checking for encrypted license (non-evaluation).
-Info: cpu: # 2024.10.03 07:09:46 (*)   Couldn't query license setup in Quartus directory D:/FPGA/quartus/bin64/
-Info: cpu: # 2024.10.03 07:09:46 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
-Info: cpu: # 2024.10.03 07:09:46 (*)   LM_LICENSE_FILE environment variable is empty
-Info: cpu: # 2024.10.03 07:09:46 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
-Info: cpu: # 2024.10.03 07:09:46 (*)   Elaborating CPU configuration settings
-Info: cpu: # 2024.10.03 07:09:46 (*)   Creating all objects for CPU
-Info: cpu: # 2024.10.03 07:09:46 (*)     Testbench
-Info: cpu: # 2024.10.03 07:09:46 (*)     Instruction decoding
-Info: cpu: # 2024.10.03 07:09:46 (*)       Instruction fields
-Info: cpu: # 2024.10.03 07:09:46 (*)       Instruction decodes
-Info: cpu: # 2024.10.03 07:09:47 (*)       Signals for RTL simulation waveforms
-Info: cpu: # 2024.10.03 07:09:47 (*)       Instruction controls
-Info: cpu: # 2024.10.03 07:09:47 (*)     Pipeline frontend
-Info: cpu: # 2024.10.03 07:09:47 (*)     Pipeline backend
-Info: cpu: # 2024.10.03 07:09:49 (*)   Generating RTL from CPU objects
-Info: cpu: # 2024.10.03 07:09:51 (*)   Creating encrypted RTL
-Info: cpu: # 2024.10.03 07:09:51 (*) Done Nios II generation
+Info: cpu:   Generation command is [exec D:/FPGA/quartus/bin64//eperlcmd.exe -I D:/FPGA/quartus/bin64//perl/lib -I D:/fpga/quartus/sopc_builder/bin/europa -I D:/fpga/quartus/sopc_builder/bin/perl_lib -I D:/fpga/quartus/sopc_builder/bin -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- D:/fpga/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=softcore_CPU_cpu --dir=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0011_cpu_gen/ --quartus_bindir=D:/FPGA/quartus/bin64/ --verilog --config=C:/Users/ANTONI~1.KEN/AppData/Local/Temp/alt0004_638509164502522942.dir/0011_cpu_gen//softcore_CPU_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2024.10.08 20:52:54 (*) Starting Nios II generation
+Info: cpu: # 2024.10.08 20:52:54 (*)   Checking for plaintext license.
+Info: cpu: # 2024.10.08 20:52:55 (*)   Couldn't query license setup in Quartus directory D:/FPGA/quartus/bin64/
+Info: cpu: # 2024.10.08 20:52:55 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2024.10.08 20:52:55 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2024.10.08 20:52:55 (*)   Plaintext license not found.
+Info: cpu: # 2024.10.08 20:52:55 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2024.10.08 20:52:55 (*)   Couldn't query license setup in Quartus directory D:/FPGA/quartus/bin64/
+Info: cpu: # 2024.10.08 20:52:55 (*)   Defaulting to contents of LM_LICENSE_FILE environment variable
+Info: cpu: # 2024.10.08 20:52:55 (*)   LM_LICENSE_FILE environment variable is empty
+Info: cpu: # 2024.10.08 20:52:55 (*)   Encrypted license not found.  Defaulting to OCP evaluation license (produces a time-limited SOF)
+Info: cpu: # 2024.10.08 20:52:55 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2024.10.08 20:52:55 (*)   Creating all objects for CPU
+Info: cpu: # 2024.10.08 20:52:55 (*)     Testbench
+Info: cpu: # 2024.10.08 20:52:55 (*)     Instruction decoding
+Info: cpu: # 2024.10.08 20:52:55 (*)       Instruction fields
+Info: cpu: # 2024.10.08 20:52:56 (*)       Instruction decodes
+Info: cpu: # 2024.10.08 20:52:56 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2024.10.08 20:52:56 (*)       Instruction controls
+Info: cpu: # 2024.10.08 20:52:56 (*)     Pipeline frontend
+Info: cpu: # 2024.10.08 20:52:56 (*)     Pipeline backend
+Info: cpu: # 2024.10.08 20:52:58 (*)   Generating RTL from CPU objects
+Info: cpu: # 2024.10.08 20:53:00 (*)   Creating encrypted RTL
+Info: cpu: # 2024.10.08 20:53:01 (*) Done Nios II generation
 Info: cpu: Done RTL generation for module 'softcore_CPU_cpu'
 Info: cpu: "CPU" instantiated altera_nios2_gen2_unit "cpu"
 Info: CPU_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "CPU_data_master_translator"
@@ -125,8 +122,8 @@ Info: jtag_uart_avalon_jtag_slave_agent_rsp_fifo: "mm_interconnect_0" instantiat
 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
-Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
-Info: router_006: "mm_interconnect_0" instantiated altera_merlin_router "router_006"
+Info: router_005: "mm_interconnect_0" instantiated altera_merlin_router "router_005"
+Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
 Info: CPU_data_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "CPU_data_master_limiter"
 Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodules/altera_avalon_sc_fifo.v
 Info: SDRAM_controller_s1_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "SDRAM_controller_s1_burst_adapter"
@@ -134,10 +131,10 @@ Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodu
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: cmd_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_002"
+Info: cmd_mux_003: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_003"
 Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
-Info: rsp_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_002"
+Info: rsp_demux_003: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_003"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
@@ -148,9 +145,9 @@ Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodu
 Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
 Info: Reusing file E:/Labo/EmbHard/EmbHard_Phase_1/db/softcore/synthesis/submodules/altera_avalon_st_pipeline_base.v
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
-Info: avalon_st_adapter_004: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_004"
+Info: avalon_st_adapter_005: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_005"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: error_adapter_0: "avalon_st_adapter_004" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_005" instantiated error_adapter "error_adapter_0"
 Info: softcore: Done "softcore" with 38 modules, 70 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

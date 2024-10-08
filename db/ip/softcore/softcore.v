@@ -4,22 +4,22 @@
 
 `timescale 1 ps / 1 ps
 module softcore (
-		input  wire        clk_clk,                          //                       clk.clk
-		output wire [7:0]  leds_external_connections_export, // leds_external_connections.export
-		input  wire        reset_reset_n,                    //                     reset.reset_n
-		output wire [11:0] sdram_ctrl_wire_addr,             //           sdram_ctrl_wire.addr
-		output wire [1:0]  sdram_ctrl_wire_ba,               //                          .ba
-		output wire        sdram_ctrl_wire_cas_n,            //                          .cas_n
-		output wire        sdram_ctrl_wire_cke,              //                          .cke
-		output wire        sdram_ctrl_wire_cs_n,             //                          .cs_n
-		inout  wire [15:0] sdram_ctrl_wire_dq,               //                          .dq
-		output wire [1:0]  sdram_ctrl_wire_dqm,              //                          .dqm
-		output wire        sdram_ctrl_wire_ras_n,            //                          .ras_n
-		output wire        sdram_ctrl_wire_we_n,             //                          .we_n
-		output wire        sram_clk_clk                      //                  sram_clk.clk
+		input  wire        clk_clk,               //             clk.clk
+		inout  wire [31:0] gpio_external_export,  //   gpio_external.export
+		input  wire        reset_reset_n,         //           reset.reset_n
+		output wire [11:0] sdram_ctrl_wire_addr,  // sdram_ctrl_wire.addr
+		output wire [1:0]  sdram_ctrl_wire_ba,    //                .ba
+		output wire        sdram_ctrl_wire_cas_n, //                .cas_n
+		output wire        sdram_ctrl_wire_cke,   //                .cke
+		output wire        sdram_ctrl_wire_cs_n,  //                .cs_n
+		inout  wire [15:0] sdram_ctrl_wire_dq,    //                .dq
+		output wire [1:0]  sdram_ctrl_wire_dqm,   //                .dqm
+		output wire        sdram_ctrl_wire_ras_n, //                .ras_n
+		output wire        sdram_ctrl_wire_we_n,  //                .we_n
+		output wire        sram_clk_clk           //        sram_clk.clk
 	);
 
-	wire         altpll_0_c0_clk;                                           // altpll_0:c0 -> [CPU:clk, LEDs:clk, SDRAM_controller:clk, irq_mapper:clk, jtag_uart:clk, mm_interconnect_0:altpll_0_c0_clk, rst_controller:clk, sysid_qsys_0:clock, timer_0:clk]
+	wire         altpll_0_c0_clk;                                           // altpll_0:c0 -> [CPU:clk, GPIO:Clk, SDRAM_controller:clk, irq_mapper:clk, jtag_uart:clk, mm_interconnect_0:altpll_0_c0_clk, rst_controller:clk, sysid_qsys_0:clock, timer_0:clk]
 	wire  [31:0] cpu_data_master_readdata;                                  // mm_interconnect_0:CPU_data_master_readdata -> CPU:d_readdata
 	wire         cpu_data_master_waitrequest;                               // mm_interconnect_0:CPU_data_master_waitrequest -> CPU:d_waitrequest
 	wire         cpu_data_master_debugaccess;                               // CPU:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:CPU_data_master_debugaccess
@@ -41,6 +41,12 @@ module softcore (
 	wire         mm_interconnect_0_jtag_uart_avalon_jtag_slave_read;        // mm_interconnect_0:jtag_uart_avalon_jtag_slave_read -> jtag_uart:av_read_n
 	wire         mm_interconnect_0_jtag_uart_avalon_jtag_slave_write;       // mm_interconnect_0:jtag_uart_avalon_jtag_slave_write -> jtag_uart:av_write_n
 	wire  [31:0] mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata;   // mm_interconnect_0:jtag_uart_avalon_jtag_slave_writedata -> jtag_uart:av_writedata
+	wire         mm_interconnect_0_gpio_avalon_slave_0_chipselect;          // mm_interconnect_0:GPIO_avalon_slave_0_chipselect -> GPIO:ChipSelect
+	wire  [31:0] mm_interconnect_0_gpio_avalon_slave_0_readdata;            // GPIO:ReadData -> mm_interconnect_0:GPIO_avalon_slave_0_readdata
+	wire   [2:0] mm_interconnect_0_gpio_avalon_slave_0_address;             // mm_interconnect_0:GPIO_avalon_slave_0_address -> GPIO:Address
+	wire         mm_interconnect_0_gpio_avalon_slave_0_read;                // mm_interconnect_0:GPIO_avalon_slave_0_read -> GPIO:Read
+	wire         mm_interconnect_0_gpio_avalon_slave_0_write;               // mm_interconnect_0:GPIO_avalon_slave_0_write -> GPIO:Write
+	wire  [31:0] mm_interconnect_0_gpio_avalon_slave_0_writedata;           // mm_interconnect_0:GPIO_avalon_slave_0_writedata -> GPIO:WriteData
 	wire  [31:0] mm_interconnect_0_sysid_qsys_0_control_slave_readdata;     // sysid_qsys_0:readdata -> mm_interconnect_0:sysid_qsys_0_control_slave_readdata
 	wire   [0:0] mm_interconnect_0_sysid_qsys_0_control_slave_address;      // mm_interconnect_0:sysid_qsys_0_control_slave_address -> sysid_qsys_0:address
 	wire  [31:0] mm_interconnect_0_cpu_debug_mem_slave_readdata;            // CPU:debug_mem_slave_readdata -> mm_interconnect_0:CPU_debug_mem_slave_readdata
@@ -70,15 +76,10 @@ module softcore (
 	wire   [2:0] mm_interconnect_0_timer_0_s1_address;                      // mm_interconnect_0:timer_0_s1_address -> timer_0:address
 	wire         mm_interconnect_0_timer_0_s1_write;                        // mm_interconnect_0:timer_0_s1_write -> timer_0:write_n
 	wire  [15:0] mm_interconnect_0_timer_0_s1_writedata;                    // mm_interconnect_0:timer_0_s1_writedata -> timer_0:writedata
-	wire         mm_interconnect_0_leds_s1_chipselect;                      // mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
-	wire  [31:0] mm_interconnect_0_leds_s1_readdata;                        // LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
-	wire   [1:0] mm_interconnect_0_leds_s1_address;                         // mm_interconnect_0:LEDs_s1_address -> LEDs:address
-	wire         mm_interconnect_0_leds_s1_write;                           // mm_interconnect_0:LEDs_s1_write -> LEDs:write_n
-	wire  [31:0] mm_interconnect_0_leds_s1_writedata;                       // mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
 	wire         irq_mapper_receiver0_irq;                                  // timer_0:irq -> irq_mapper:receiver0_irq
 	wire         irq_mapper_receiver1_irq;                                  // jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	wire  [31:0] cpu_irq_irq;                                               // irq_mapper:sender_irq -> CPU:irq
-	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [CPU:reset_n, LEDs:reset_n, SDRAM_controller:reset_n, irq_mapper:reset, jtag_uart:rst_n, mm_interconnect_0:CPU_reset_reset_bridge_in_reset_reset, rst_translator:in_reset, sysid_qsys_0:reset_n, timer_0:reset_n]
+	wire         rst_controller_reset_out_reset;                            // rst_controller:reset_out -> [CPU:reset_n, GPIO:nReset, SDRAM_controller:reset_n, irq_mapper:reset, jtag_uart:rst_n, mm_interconnect_0:CPU_reset_reset_bridge_in_reset_reset, rst_translator:in_reset, sysid_qsys_0:reset_n, timer_0:reset_n]
 	wire         rst_controller_reset_out_reset_req;                        // rst_controller:reset_req -> [CPU:reset_req, rst_translator:reset_req_in]
 	wire         cpu_debug_reset_request_reset;                             // CPU:debug_reset_request -> [rst_controller:reset_in1, rst_controller_001:reset_in1]
 	wire         rst_controller_001_reset_out_reset;                        // rst_controller_001:reset_out -> [altpll_0:reset, mm_interconnect_0:altpll_0_inclk_interface_reset_reset_bridge_in_reset_reset]
@@ -114,15 +115,16 @@ module softcore (
 		.dummy_ci_port                       ()                                                   // custom_instruction_master.readra
 	);
 
-	softcore_LEDs leds (
-		.clk        (altpll_0_c0_clk),                      //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),      //               reset.reset_n
-		.address    (mm_interconnect_0_leds_s1_address),    //                  s1.address
-		.write_n    (~mm_interconnect_0_leds_s1_write),     //                    .write_n
-		.writedata  (mm_interconnect_0_leds_s1_writedata),  //                    .writedata
-		.chipselect (mm_interconnect_0_leds_s1_chipselect), //                    .chipselect
-		.readdata   (mm_interconnect_0_leds_s1_readdata),   //                    .readdata
-		.out_port   (leds_external_connections_export)      // external_connection.export
+	ParallelPort gpio (
+		.Address    (mm_interconnect_0_gpio_avalon_slave_0_address),    // avalon_slave_0.address
+		.ChipSelect (mm_interconnect_0_gpio_avalon_slave_0_chipselect), //               .chipselect
+		.Read       (mm_interconnect_0_gpio_avalon_slave_0_read),       //               .read
+		.Write      (mm_interconnect_0_gpio_avalon_slave_0_write),      //               .write
+		.WriteData  (mm_interconnect_0_gpio_avalon_slave_0_writedata),  //               .writedata
+		.ReadData   (mm_interconnect_0_gpio_avalon_slave_0_readdata),   //               .readdata
+		.Clk        (altpll_0_c0_clk),                                  //          clock.clk
+		.nReset     (~rst_controller_reset_out_reset),                  //     reset_sink.reset_n
+		.ParPort    (gpio_external_export)                              //    conduit_end.export
 	);
 
 	softcore_SDRAM_controller sdram_controller (
@@ -235,6 +237,12 @@ module softcore (
 		.CPU_debug_mem_slave_byteenable                             (mm_interconnect_0_cpu_debug_mem_slave_byteenable),          //                                                     .byteenable
 		.CPU_debug_mem_slave_waitrequest                            (mm_interconnect_0_cpu_debug_mem_slave_waitrequest),         //                                                     .waitrequest
 		.CPU_debug_mem_slave_debugaccess                            (mm_interconnect_0_cpu_debug_mem_slave_debugaccess),         //                                                     .debugaccess
+		.GPIO_avalon_slave_0_address                                (mm_interconnect_0_gpio_avalon_slave_0_address),             //                                  GPIO_avalon_slave_0.address
+		.GPIO_avalon_slave_0_write                                  (mm_interconnect_0_gpio_avalon_slave_0_write),               //                                                     .write
+		.GPIO_avalon_slave_0_read                                   (mm_interconnect_0_gpio_avalon_slave_0_read),                //                                                     .read
+		.GPIO_avalon_slave_0_readdata                               (mm_interconnect_0_gpio_avalon_slave_0_readdata),            //                                                     .readdata
+		.GPIO_avalon_slave_0_writedata                              (mm_interconnect_0_gpio_avalon_slave_0_writedata),           //                                                     .writedata
+		.GPIO_avalon_slave_0_chipselect                             (mm_interconnect_0_gpio_avalon_slave_0_chipselect),          //                                                     .chipselect
 		.jtag_uart_avalon_jtag_slave_address                        (mm_interconnect_0_jtag_uart_avalon_jtag_slave_address),     //                          jtag_uart_avalon_jtag_slave.address
 		.jtag_uart_avalon_jtag_slave_write                          (mm_interconnect_0_jtag_uart_avalon_jtag_slave_write),       //                                                     .write
 		.jtag_uart_avalon_jtag_slave_read                           (mm_interconnect_0_jtag_uart_avalon_jtag_slave_read),        //                                                     .read
@@ -242,11 +250,6 @@ module softcore (
 		.jtag_uart_avalon_jtag_slave_writedata                      (mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata),   //                                                     .writedata
 		.jtag_uart_avalon_jtag_slave_waitrequest                    (mm_interconnect_0_jtag_uart_avalon_jtag_slave_waitrequest), //                                                     .waitrequest
 		.jtag_uart_avalon_jtag_slave_chipselect                     (mm_interconnect_0_jtag_uart_avalon_jtag_slave_chipselect),  //                                                     .chipselect
-		.LEDs_s1_address                                            (mm_interconnect_0_leds_s1_address),                         //                                              LEDs_s1.address
-		.LEDs_s1_write                                              (mm_interconnect_0_leds_s1_write),                           //                                                     .write
-		.LEDs_s1_readdata                                           (mm_interconnect_0_leds_s1_readdata),                        //                                                     .readdata
-		.LEDs_s1_writedata                                          (mm_interconnect_0_leds_s1_writedata),                       //                                                     .writedata
-		.LEDs_s1_chipselect                                         (mm_interconnect_0_leds_s1_chipselect),                      //                                                     .chipselect
 		.SDRAM_controller_s1_address                                (mm_interconnect_0_sdram_controller_s1_address),             //                                  SDRAM_controller_s1.address
 		.SDRAM_controller_s1_write                                  (mm_interconnect_0_sdram_controller_s1_write),               //                                                     .write
 		.SDRAM_controller_s1_read                                   (mm_interconnect_0_sdram_controller_s1_read),                //                                                     .read

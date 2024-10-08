@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;led_counter_bsp&apos;" deleteContents="false" description="Delete resource &apos;led_counter_bsp&apos;" element1="/led_counter_bsp" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1727933502664"/>&#x0A;<refactoring comment="Delete resource &apos;led_counter&apos;" deleteContents="false" description="Delete resource &apos;led_counter&apos;" element1="/led_counter" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1727933506546"/>
-</session>

@@ -8,19 +8,19 @@ use IEEE.numeric_std.all;
 
 entity softcore is
 	port (
-		clk_clk                          : in    std_logic                     := '0';             --                       clk.clk
-		leds_external_connections_export : out   std_logic_vector(7 downto 0);                     -- leds_external_connections.export
-		reset_reset_n                    : in    std_logic                     := '0';             --                     reset.reset_n
-		sdram_ctrl_wire_addr             : out   std_logic_vector(11 downto 0);                    --           sdram_ctrl_wire.addr
-		sdram_ctrl_wire_ba               : out   std_logic_vector(1 downto 0);                     --                          .ba
-		sdram_ctrl_wire_cas_n            : out   std_logic;                                        --                          .cas_n
-		sdram_ctrl_wire_cke              : out   std_logic;                                        --                          .cke
-		sdram_ctrl_wire_cs_n             : out   std_logic;                                        --                          .cs_n
-		sdram_ctrl_wire_dq               : inout std_logic_vector(15 downto 0) := (others => '0'); --                          .dq
-		sdram_ctrl_wire_dqm              : out   std_logic_vector(1 downto 0);                     --                          .dqm
-		sdram_ctrl_wire_ras_n            : out   std_logic;                                        --                          .ras_n
-		sdram_ctrl_wire_we_n             : out   std_logic;                                        --                          .we_n
-		sram_clk_clk                     : out   std_logic                                         --                  sram_clk.clk
+		clk_clk               : in    std_logic                     := '0';             --             clk.clk
+		gpio_external_export  : inout std_logic_vector(31 downto 0) := (others => '0'); --   gpio_external.export
+		reset_reset_n         : in    std_logic                     := '0';             --           reset.reset_n
+		sdram_ctrl_wire_addr  : out   std_logic_vector(11 downto 0);                    -- sdram_ctrl_wire.addr
+		sdram_ctrl_wire_ba    : out   std_logic_vector(1 downto 0);                     --                .ba
+		sdram_ctrl_wire_cas_n : out   std_logic;                                        --                .cas_n
+		sdram_ctrl_wire_cke   : out   std_logic;                                        --                .cke
+		sdram_ctrl_wire_cs_n  : out   std_logic;                                        --                .cs_n
+		sdram_ctrl_wire_dq    : inout std_logic_vector(15 downto 0) := (others => '0'); --                .dq
+		sdram_ctrl_wire_dqm   : out   std_logic_vector(1 downto 0);                     --                .dqm
+		sdram_ctrl_wire_ras_n : out   std_logic;                                        --                .ras_n
+		sdram_ctrl_wire_we_n  : out   std_logic;                                        --                .we_n
+		sram_clk_clk          : out   std_logic                                         --        sram_clk.clk
 	);
 end entity softcore;
 
@@ -58,18 +58,19 @@ architecture rtl of softcore is
 		);
 	end component softcore_CPU;
 
-	component softcore_LEDs is
+	component ParallelPort is
 		port (
-			clk        : in  std_logic                     := 'X';             -- clk
-			reset_n    : in  std_logic                     := 'X';             -- reset_n
-			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			write_n    : in  std_logic                     := 'X';             -- write_n
-			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			chipselect : in  std_logic                     := 'X';             -- chipselect
-			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(7 downto 0)                      -- export
+			Address    : in    std_logic_vector(2 downto 0)  := (others => 'X'); -- address
+			ChipSelect : in    std_logic                     := 'X';             -- chipselect
+			Read       : in    std_logic                     := 'X';             -- read
+			Write      : in    std_logic                     := 'X';             -- write
+			WriteData  : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			ReadData   : out   std_logic_vector(31 downto 0);                    -- readdata
+			Clk        : in    std_logic                     := 'X';             -- clk
+			nReset     : in    std_logic                     := 'X';             -- reset_n
+			ParPort    : inout std_logic_vector(31 downto 0) := (others => 'X')  -- export
 		);
-	end component softcore_LEDs;
+	end component ParallelPort;
 
 	component softcore_SDRAM_controller is
 		port (
@@ -192,6 +193,12 @@ architecture rtl of softcore is
 			CPU_debug_mem_slave_byteenable                             : out std_logic_vector(3 downto 0);                     -- byteenable
 			CPU_debug_mem_slave_waitrequest                            : in  std_logic                     := 'X';             -- waitrequest
 			CPU_debug_mem_slave_debugaccess                            : out std_logic;                                        -- debugaccess
+			GPIO_avalon_slave_0_address                                : out std_logic_vector(2 downto 0);                     -- address
+			GPIO_avalon_slave_0_write                                  : out std_logic;                                        -- write
+			GPIO_avalon_slave_0_read                                   : out std_logic;                                        -- read
+			GPIO_avalon_slave_0_readdata                               : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			GPIO_avalon_slave_0_writedata                              : out std_logic_vector(31 downto 0);                    -- writedata
+			GPIO_avalon_slave_0_chipselect                             : out std_logic;                                        -- chipselect
 			jtag_uart_avalon_jtag_slave_address                        : out std_logic_vector(0 downto 0);                     -- address
 			jtag_uart_avalon_jtag_slave_write                          : out std_logic;                                        -- write
 			jtag_uart_avalon_jtag_slave_read                           : out std_logic;                                        -- read
@@ -199,11 +206,6 @@ architecture rtl of softcore is
 			jtag_uart_avalon_jtag_slave_writedata                      : out std_logic_vector(31 downto 0);                    -- writedata
 			jtag_uart_avalon_jtag_slave_waitrequest                    : in  std_logic                     := 'X';             -- waitrequest
 			jtag_uart_avalon_jtag_slave_chipselect                     : out std_logic;                                        -- chipselect
-			LEDs_s1_address                                            : out std_logic_vector(1 downto 0);                     -- address
-			LEDs_s1_write                                              : out std_logic;                                        -- write
-			LEDs_s1_readdata                                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			LEDs_s1_writedata                                          : out std_logic_vector(31 downto 0);                    -- writedata
-			LEDs_s1_chipselect                                         : out std_logic;                                        -- chipselect
 			SDRAM_controller_s1_address                                : out std_logic_vector(22 downto 0);                    -- address
 			SDRAM_controller_s1_write                                  : out std_logic;                                        -- write
 			SDRAM_controller_s1_read                                   : out std_logic;                                        -- read
@@ -365,7 +367,7 @@ architecture rtl of softcore is
 		);
 	end component softcore_rst_controller_001;
 
-	signal altpll_0_c0_clk                                               : std_logic;                     -- altpll_0:c0 -> [CPU:clk, LEDs:clk, SDRAM_controller:clk, irq_mapper:clk, jtag_uart:clk, mm_interconnect_0:altpll_0_c0_clk, rst_controller:clk, sysid_qsys_0:clock, timer_0:clk]
+	signal altpll_0_c0_clk                                               : std_logic;                     -- altpll_0:c0 -> [CPU:clk, GPIO:Clk, SDRAM_controller:clk, irq_mapper:clk, jtag_uart:clk, mm_interconnect_0:altpll_0_c0_clk, rst_controller:clk, sysid_qsys_0:clock, timer_0:clk]
 	signal cpu_data_master_readdata                                      : std_logic_vector(31 downto 0); -- mm_interconnect_0:CPU_data_master_readdata -> CPU:d_readdata
 	signal cpu_data_master_waitrequest                                   : std_logic;                     -- mm_interconnect_0:CPU_data_master_waitrequest -> CPU:d_waitrequest
 	signal cpu_data_master_debugaccess                                   : std_logic;                     -- CPU:debug_mem_slave_debugaccess_to_roms -> mm_interconnect_0:CPU_data_master_debugaccess
@@ -387,6 +389,12 @@ architecture rtl of softcore is
 	signal mm_interconnect_0_jtag_uart_avalon_jtag_slave_read            : std_logic;                     -- mm_interconnect_0:jtag_uart_avalon_jtag_slave_read -> mm_interconnect_0_jtag_uart_avalon_jtag_slave_read:in
 	signal mm_interconnect_0_jtag_uart_avalon_jtag_slave_write           : std_logic;                     -- mm_interconnect_0:jtag_uart_avalon_jtag_slave_write -> mm_interconnect_0_jtag_uart_avalon_jtag_slave_write:in
 	signal mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata       : std_logic_vector(31 downto 0); -- mm_interconnect_0:jtag_uart_avalon_jtag_slave_writedata -> jtag_uart:av_writedata
+	signal mm_interconnect_0_gpio_avalon_slave_0_chipselect              : std_logic;                     -- mm_interconnect_0:GPIO_avalon_slave_0_chipselect -> GPIO:ChipSelect
+	signal mm_interconnect_0_gpio_avalon_slave_0_readdata                : std_logic_vector(31 downto 0); -- GPIO:ReadData -> mm_interconnect_0:GPIO_avalon_slave_0_readdata
+	signal mm_interconnect_0_gpio_avalon_slave_0_address                 : std_logic_vector(2 downto 0);  -- mm_interconnect_0:GPIO_avalon_slave_0_address -> GPIO:Address
+	signal mm_interconnect_0_gpio_avalon_slave_0_read                    : std_logic;                     -- mm_interconnect_0:GPIO_avalon_slave_0_read -> GPIO:Read
+	signal mm_interconnect_0_gpio_avalon_slave_0_write                   : std_logic;                     -- mm_interconnect_0:GPIO_avalon_slave_0_write -> GPIO:Write
+	signal mm_interconnect_0_gpio_avalon_slave_0_writedata               : std_logic_vector(31 downto 0); -- mm_interconnect_0:GPIO_avalon_slave_0_writedata -> GPIO:WriteData
 	signal mm_interconnect_0_sysid_qsys_0_control_slave_readdata         : std_logic_vector(31 downto 0); -- sysid_qsys_0:readdata -> mm_interconnect_0:sysid_qsys_0_control_slave_readdata
 	signal mm_interconnect_0_sysid_qsys_0_control_slave_address          : std_logic_vector(0 downto 0);  -- mm_interconnect_0:sysid_qsys_0_control_slave_address -> sysid_qsys_0:address
 	signal mm_interconnect_0_cpu_debug_mem_slave_readdata                : std_logic_vector(31 downto 0); -- CPU:debug_mem_slave_readdata -> mm_interconnect_0:CPU_debug_mem_slave_readdata
@@ -416,11 +424,6 @@ architecture rtl of softcore is
 	signal mm_interconnect_0_timer_0_s1_address                          : std_logic_vector(2 downto 0);  -- mm_interconnect_0:timer_0_s1_address -> timer_0:address
 	signal mm_interconnect_0_timer_0_s1_write                            : std_logic;                     -- mm_interconnect_0:timer_0_s1_write -> mm_interconnect_0_timer_0_s1_write:in
 	signal mm_interconnect_0_timer_0_s1_writedata                        : std_logic_vector(15 downto 0); -- mm_interconnect_0:timer_0_s1_writedata -> timer_0:writedata
-	signal mm_interconnect_0_leds_s1_chipselect                          : std_logic;                     -- mm_interconnect_0:LEDs_s1_chipselect -> LEDs:chipselect
-	signal mm_interconnect_0_leds_s1_readdata                            : std_logic_vector(31 downto 0); -- LEDs:readdata -> mm_interconnect_0:LEDs_s1_readdata
-	signal mm_interconnect_0_leds_s1_address                             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:LEDs_s1_address -> LEDs:address
-	signal mm_interconnect_0_leds_s1_write                               : std_logic;                     -- mm_interconnect_0:LEDs_s1_write -> mm_interconnect_0_leds_s1_write:in
-	signal mm_interconnect_0_leds_s1_writedata                           : std_logic_vector(31 downto 0); -- mm_interconnect_0:LEDs_s1_writedata -> LEDs:writedata
 	signal irq_mapper_receiver0_irq                                      : std_logic;                     -- timer_0:irq -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                      : std_logic;                     -- jtag_uart:av_irq -> irq_mapper:receiver1_irq
 	signal cpu_irq_irq                                                   : std_logic_vector(31 downto 0); -- irq_mapper:sender_irq -> CPU:irq
@@ -435,8 +438,7 @@ architecture rtl of softcore is
 	signal mm_interconnect_0_sdram_controller_s1_byteenable_ports_inv    : std_logic_vector(1 downto 0);  -- mm_interconnect_0_sdram_controller_s1_byteenable:inv -> SDRAM_controller:az_be_n
 	signal mm_interconnect_0_sdram_controller_s1_write_ports_inv         : std_logic;                     -- mm_interconnect_0_sdram_controller_s1_write:inv -> SDRAM_controller:az_wr_n
 	signal mm_interconnect_0_timer_0_s1_write_ports_inv                  : std_logic;                     -- mm_interconnect_0_timer_0_s1_write:inv -> timer_0:write_n
-	signal mm_interconnect_0_leds_s1_write_ports_inv                     : std_logic;                     -- mm_interconnect_0_leds_s1_write:inv -> LEDs:write_n
-	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> [CPU:reset_n, LEDs:reset_n, SDRAM_controller:reset_n, jtag_uart:rst_n, sysid_qsys_0:reset_n, timer_0:reset_n]
+	signal rst_controller_reset_out_reset_ports_inv                      : std_logic;                     -- rst_controller_reset_out_reset:inv -> [CPU:reset_n, GPIO:nReset, SDRAM_controller:reset_n, jtag_uart:rst_n, sysid_qsys_0:reset_n, timer_0:reset_n]
 
 begin
 
@@ -472,16 +474,17 @@ begin
 			dummy_ci_port                       => open                                               -- custom_instruction_master.readra
 		);
 
-	leds : component softcore_LEDs
+	gpio : component ParallelPort
 		port map (
-			clk        => altpll_0_c0_clk,                           --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_0_leds_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_leds_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_leds_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_leds_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_leds_s1_readdata,        --                    .readdata
-			out_port   => leds_external_connections_export           -- external_connection.export
+			Address    => mm_interconnect_0_gpio_avalon_slave_0_address,    -- avalon_slave_0.address
+			ChipSelect => mm_interconnect_0_gpio_avalon_slave_0_chipselect, --               .chipselect
+			Read       => mm_interconnect_0_gpio_avalon_slave_0_read,       --               .read
+			Write      => mm_interconnect_0_gpio_avalon_slave_0_write,      --               .write
+			WriteData  => mm_interconnect_0_gpio_avalon_slave_0_writedata,  --               .writedata
+			ReadData   => mm_interconnect_0_gpio_avalon_slave_0_readdata,   --               .readdata
+			Clk        => altpll_0_c0_clk,                                  --          clock.clk
+			nReset     => rst_controller_reset_out_reset_ports_inv,         --     reset_sink.reset_n
+			ParPort    => gpio_external_export                              --    conduit_end.export
 		);
 
 	sdram_controller : component softcore_SDRAM_controller
@@ -600,6 +603,12 @@ begin
 			CPU_debug_mem_slave_byteenable                             => mm_interconnect_0_cpu_debug_mem_slave_byteenable,          --                                                     .byteenable
 			CPU_debug_mem_slave_waitrequest                            => mm_interconnect_0_cpu_debug_mem_slave_waitrequest,         --                                                     .waitrequest
 			CPU_debug_mem_slave_debugaccess                            => mm_interconnect_0_cpu_debug_mem_slave_debugaccess,         --                                                     .debugaccess
+			GPIO_avalon_slave_0_address                                => mm_interconnect_0_gpio_avalon_slave_0_address,             --                                  GPIO_avalon_slave_0.address
+			GPIO_avalon_slave_0_write                                  => mm_interconnect_0_gpio_avalon_slave_0_write,               --                                                     .write
+			GPIO_avalon_slave_0_read                                   => mm_interconnect_0_gpio_avalon_slave_0_read,                --                                                     .read
+			GPIO_avalon_slave_0_readdata                               => mm_interconnect_0_gpio_avalon_slave_0_readdata,            --                                                     .readdata
+			GPIO_avalon_slave_0_writedata                              => mm_interconnect_0_gpio_avalon_slave_0_writedata,           --                                                     .writedata
+			GPIO_avalon_slave_0_chipselect                             => mm_interconnect_0_gpio_avalon_slave_0_chipselect,          --                                                     .chipselect
 			jtag_uart_avalon_jtag_slave_address                        => mm_interconnect_0_jtag_uart_avalon_jtag_slave_address,     --                          jtag_uart_avalon_jtag_slave.address
 			jtag_uart_avalon_jtag_slave_write                          => mm_interconnect_0_jtag_uart_avalon_jtag_slave_write,       --                                                     .write
 			jtag_uart_avalon_jtag_slave_read                           => mm_interconnect_0_jtag_uart_avalon_jtag_slave_read,        --                                                     .read
@@ -607,11 +616,6 @@ begin
 			jtag_uart_avalon_jtag_slave_writedata                      => mm_interconnect_0_jtag_uart_avalon_jtag_slave_writedata,   --                                                     .writedata
 			jtag_uart_avalon_jtag_slave_waitrequest                    => mm_interconnect_0_jtag_uart_avalon_jtag_slave_waitrequest, --                                                     .waitrequest
 			jtag_uart_avalon_jtag_slave_chipselect                     => mm_interconnect_0_jtag_uart_avalon_jtag_slave_chipselect,  --                                                     .chipselect
-			LEDs_s1_address                                            => mm_interconnect_0_leds_s1_address,                         --                                              LEDs_s1.address
-			LEDs_s1_write                                              => mm_interconnect_0_leds_s1_write,                           --                                                     .write
-			LEDs_s1_readdata                                           => mm_interconnect_0_leds_s1_readdata,                        --                                                     .readdata
-			LEDs_s1_writedata                                          => mm_interconnect_0_leds_s1_writedata,                       --                                                     .writedata
-			LEDs_s1_chipselect                                         => mm_interconnect_0_leds_s1_chipselect,                      --                                                     .chipselect
 			SDRAM_controller_s1_address                                => mm_interconnect_0_sdram_controller_s1_address,             --                                  SDRAM_controller_s1.address
 			SDRAM_controller_s1_write                                  => mm_interconnect_0_sdram_controller_s1_write,               --                                                     .write
 			SDRAM_controller_s1_read                                   => mm_interconnect_0_sdram_controller_s1_read,                --                                                     .read
@@ -782,8 +786,6 @@ begin
 	mm_interconnect_0_sdram_controller_s1_write_ports_inv <= not mm_interconnect_0_sdram_controller_s1_write;
 
 	mm_interconnect_0_timer_0_s1_write_ports_inv <= not mm_interconnect_0_timer_0_s1_write;
-
-	mm_interconnect_0_leds_s1_write_ports_inv <= not mm_interconnect_0_leds_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 
