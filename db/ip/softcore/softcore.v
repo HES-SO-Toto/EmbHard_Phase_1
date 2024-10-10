@@ -116,15 +116,15 @@ module softcore (
 	);
 
 	ParallelPort gpio (
+		.Clk        (altpll_0_c0_clk),                                  //          clock.clk
 		.Address    (mm_interconnect_0_gpio_avalon_slave_0_address),    // avalon_slave_0.address
 		.ChipSelect (mm_interconnect_0_gpio_avalon_slave_0_chipselect), //               .chipselect
 		.Read       (mm_interconnect_0_gpio_avalon_slave_0_read),       //               .read
 		.Write      (mm_interconnect_0_gpio_avalon_slave_0_write),      //               .write
 		.WriteData  (mm_interconnect_0_gpio_avalon_slave_0_writedata),  //               .writedata
 		.ReadData   (mm_interconnect_0_gpio_avalon_slave_0_readdata),   //               .readdata
-		.Clk        (altpll_0_c0_clk),                                  //          clock.clk
-		.nReset     (~rst_controller_reset_out_reset),                  //     reset_sink.reset_n
-		.ParPort    (gpio_external_export)                              //    conduit_end.export
+		.ParPort    (gpio_external_export),                             //    conduit_end.export
+		.nReset     (~rst_controller_reset_out_reset)                   //     reset_sink.reset_n
 	);
 
 	softcore_SDRAM_controller sdram_controller (

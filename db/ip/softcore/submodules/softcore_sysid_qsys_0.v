@@ -49,7 +49,7 @@ module softcore_sysid_qsys_0 (
 
   wire    [ 31: 0] readdata;
   //control_slave, which is an e_avalon_slave
-  assign readdata = address ? 1728416205 : 0;
+  assign readdata = address ? 1728572877 : 0;
 
 endmodule
 

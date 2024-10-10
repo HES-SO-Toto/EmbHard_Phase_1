@@ -33,7 +33,7 @@ projects_eclipse/*
 *~
 *example*
 *sopc_*
-db/main_project*
+db
 # *.sdc # I want those timing files
 
 # ignore Quartus II generated folders
