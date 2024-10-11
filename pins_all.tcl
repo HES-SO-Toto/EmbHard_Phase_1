@@ -157,7 +157,7 @@
 	 
 #### LCD
 
-     set_location_assignment PIN_A18  -to LCD_RESETn
+    set_location_assignment PIN_A18  -to LCD_RESETn
 	 set_location_assignment PIN_G14  -to LCD_CSn
 	 set_location_assignment PIN_H14  -to LCD_D_Cn
 	 set_location_assignment PIN_G15  -to LCD_WRn

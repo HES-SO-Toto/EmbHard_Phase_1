@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'softcore'
  * SOPC Builder design path: ../../softcore.sopcinfo
  *
- * Generated: Thu Oct 10 17:12:48 CEST 2024
+ * Generated: Fri Oct 11 17:10:05 CEST 2024
  */
 
 /*
@@ -148,6 +148,7 @@
 #define __ALTERA_NIOS2_GEN2
 #define __ALTPLL
 #define __GPIO
+#define __LCD_CTL
 
 
 /*
@@ -162,6 +163,34 @@
 #define GPIO_NAME "/dev/GPIO"
 #define GPIO_SPAN 32
 #define GPIO_TYPE "GPIO"
+
+
+/*
+ * GPIO_LCD configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_GPIO_LCD GPIO
+#define GPIO_LCD_BASE 0x2001058
+#define GPIO_LCD_IRQ -1
+#define GPIO_LCD_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define GPIO_LCD_NAME "/dev/GPIO_LCD"
+#define GPIO_LCD_SPAN 8
+#define GPIO_LCD_TYPE "GPIO"
+
+
+/*
+ * LCD_CTL_0 configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_LCD_CTL_0 LCD_CTL
+#define LCD_CTL_0_BASE 0x2001060
+#define LCD_CTL_0_IRQ -1
+#define LCD_CTL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define LCD_CTL_0_NAME "/dev/LCD_CTL_0"
+#define LCD_CTL_0_SPAN 4
+#define LCD_CTL_0_TYPE "LCD_CTL"
 
 
 /*
@@ -294,7 +323,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1728572831
+#define SYSID_QSYS_0_TIMESTAMP 1728658626
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 

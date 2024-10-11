@@ -1,0 +1,29 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst softcore.GPIO_LCD -pg 1 -lvl 4 -y 310
+preplace inst softcore.CPU.cpu -pg 1
+preplace inst softcore.LCD_CTL_0 -pg 1 -lvl 4 -y 410
+preplace inst softcore.clk_0 -pg 1 -lvl 1 -y 120
+preplace inst softcore.SDRAM_controller -pg 1 -lvl 4 -y 510
+preplace inst softcore.CPU -pg 1 -lvl 3 -y 150
+preplace inst softcore -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst softcore.altpll_0 -pg 1 -lvl 2 -y 120
+preplace inst softcore.timer_0 -pg 1 -lvl 4 -y 210
+preplace inst softcore.CPU.reset_bridge -pg 1
+preplace inst softcore.jtag_uart -pg 1 -lvl 4 -y 30
+preplace inst softcore.GPIO -pg 1 -lvl 4 -y 610
+preplace inst softcore.sysid_qsys_0 -pg 1 -lvl 4 -y 130
+preplace inst softcore.CPU.clock_bridge -pg 1
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)softcore.gpio_external,(SLAVE)GPIO.conduit_end) 1 0 4 NJ 660 NJ 660 NJ 660 NJ
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)SDRAM_controller.wire,(SLAVE)softcore.sdram_ctrl_wire) 1 0 4 NJ 580 NJ 580 NJ 580 NJ
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)LCD_CTL_0.conduit_end,(SLAVE)softcore.lcd_ctl_external) 1 0 4 NJ 460 NJ 460 NJ 460 NJ
+preplace netloc INTERCONNECT<net_container>softcore</net_container>(SLAVE)GPIO.avalon_slave_0,(SLAVE)timer_0.s1,(MASTER)CPU.data_master,(MASTER)CPU.instruction_master,(SLAVE)GPIO_LCD.avalon_slave_0,(SLAVE)CPU.debug_mem_slave,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)LCD_CTL_0.avalon_slave_0,(SLAVE)SDRAM_controller.s1,(SLAVE)altpll_0.pll_slave,(SLAVE)sysid_qsys_0.control_slave) 1 1 3 330 210 550 70 950
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)clk_0.clk_in,(SLAVE)softcore.clk) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)LCD_CTL_0.clock,(SLAVE)GPIO.clock,(MASTER)altpll_0.c0,(SLAVE)jtag_uart.clk,(SLAVE)SDRAM_controller.clk,(SLAVE)sysid_qsys_0.clk,(SLAVE)GPIO_LCD.clock,(SLAVE)CPU.clk,(SLAVE)timer_0.clk) 1 2 2 590 90 970
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)softcore.gpio_lcd_external,(SLAVE)GPIO_LCD.conduit_end) 1 0 4 NJ 360 NJ 360 NJ 360 NJ
+preplace netloc EXPORT<net_container>softcore</net_container>(SLAVE)clk_0.clk_in_reset,(SLAVE)softcore.reset) 1 0 1 NJ
+preplace netloc FAN_OUT<net_container>softcore</net_container>(SLAVE)timer_0.irq,(SLAVE)jtag_uart.irq,(MASTER)CPU.irq) 1 3 1 990
+preplace netloc INTERCONNECT<net_container>softcore</net_container>(SLAVE)SDRAM_controller.reset,(MASTER)CPU.debug_reset_request,(SLAVE)LCD_CTL_0.reset_n,(SLAVE)altpll_0.inclk_interface_reset,(SLAVE)CPU.reset,(SLAVE)sysid_qsys_0.reset,(SLAVE)timer_0.reset,(SLAVE)GPIO.reset_sink,(MASTER)clk_0.clk_reset,(SLAVE)jtag_uart.reset,(SLAVE)GPIO_LCD.reset_sink) 1 1 3 330 110 570 110 1010
+preplace netloc POINT_TO_POINT<net_container>softcore</net_container>(SLAVE)altpll_0.inclk_interface,(MASTER)clk_0.clk) 1 1 1 N
+levelinfo -pg 1 0 120 1210
+levelinfo -hier softcore 130 160 360 710 1060 1200

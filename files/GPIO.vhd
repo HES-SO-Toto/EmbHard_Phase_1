@@ -1,25 +1,27 @@
 -------------------------------------------------------------------------------
--- HES-SO Master, projet du cours de LPSC 
+-- HES-SO Master, projet du cours de EmbHard 
 --
--- File         : compteur.vhd
+-- File         : GPIO.vhd
 -- Description  : The file contain a implementation of a GPIO component
 --                
 --
 -- Author       : Antonin Kenzi
 -- Date         : 03.10.2024
--- Version      : 1.0
+-- Version      : 1.1
 --
--- Dependencies :
+-- Dependencies : None
 --
 --| Modifications |------------------------------------------------------------
 -- Version   Author Date               Description
--- 1.0       AKI    12.03.2024          Creation of the file
+-- 1.0       AKI    3.10.2024          Creation of the file
+-- 1.1       AKI    11.10.2024         Finish and tested 
 -------------------------------------------------------------------------------
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 ENTITY ParallelPort IS
+ GENERIC(N : NATURAL := 32);
  PORT(
 	-- Avalon interfaces signals
 		Clk : IN std_logic;
@@ -28,11 +30,11 @@ ENTITY ParallelPort IS
 		ChipSelect : IN std_logic;
 		Read : IN std_logic;
 		Write : IN std_logic;
-		WriteData : IN std_logic_vector (31 DOWNTO 0);
+		WriteData : IN std_logic_vector (N-1 DOWNTO 0);
 		
-		ReadData: OUT std_logic_vector (31 DOWNTO 0);
+		ReadData: OUT std_logic_vector (N-1 DOWNTO 0);
 	-- Parallel Port external interface
-		ParPort : INOUT std_logic_vector (31 DOWNTO 0)
+		ParPort : INOUT std_logic_vector (N-1 DOWNTO 0)
 	);
 End ParallelPort;
 
@@ -44,11 +46,11 @@ ARCHITECTURE comp OF ParallelPort IS
 	
     -- Signals (Nomenclature : name of the signal + _s)
     -- exemple : signal a : signed(N_bit-1 downto 0);
-    signal iRegDir_s : std_logic_vector (31 DOWNTO 0);
+    signal iRegDir_s : std_logic_vector (N-1 DOWNTO 0);
 	 
-    signal iRegPort_s : std_logic_vector (31 DOWNTO 0);
+    signal iRegPort_s : std_logic_vector (N-1 DOWNTO 0);
 	 
-    signal iRegPin_s : std_logic_vector (31 DOWNTO 0);
+    signal iRegPin_s : std_logic_vector (N-1 DOWNTO 0);
     -- Procedures (Nomenclature : name of the procedure + _p)
 
 begin
@@ -93,7 +95,7 @@ begin
 	-- Parallel Port output value
 	pPort:process(iRegDir_s, iRegPort_s)
 		begin
-			for i in 0 to 31 loop
+			for i in 0 to N-1 loop
 				if iRegDir_s(i) = '1' then
 					ParPort(i) <= iRegPort_s(i);
 				else
