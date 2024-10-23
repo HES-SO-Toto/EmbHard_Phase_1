@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="softcore" kind="softcore" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2024.10.16.15:06:00 -->
+ <!-- 2024.10.23.18:17:13 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1729083960</value>
+  <value>1729700232</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1730,7 +1730,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timer_0.s1' start='0x2001000' end='0x2001020' type='altera_avalon_timer.s1' /><slave name='GPIO.avalon_slave_0' start='0x2001020' end='0x2001040' type='GPIO.avalon_slave_0' /><slave name='altpll_0.pll_slave' start='0x2001040' end='0x2001050' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x2001050' end='0x2001058' type='altera_avalon_sysid_qsys.control_slave' /><slave name='GPIO_LCD.avalon_slave_0' start='0x2001058' end='0x2001060' type='GPIO.avalon_slave_0' /><slave name='LCD_CTL_0.avalon_slave_0' start='0x2001060' end='0x2001064' type='LCD_CTL.avalon_slave_0' /><slave name='jtag_uart.avalon_jtag_slave' start='0x2001068' end='0x2001070' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timer_0.s1' start='0x2001000' end='0x2001020' type='altera_avalon_timer.s1' /><slave name='GPIO.avalon_slave_0' start='0x2001020' end='0x2001040' type='GPIO.avalon_slave_0' /><slave name='altpll_0.pll_slave' start='0x2001040' end='0x2001050' type='altpll.pll_slave' /><slave name='sysid_qsys_0.control_slave' start='0x2001050' end='0x2001058' type='altera_avalon_sysid_qsys.control_slave' /><slave name='GPIO_LCD.avalon_slave_0' start='0x2001058' end='0x2001060' type='GPIO.avalon_slave_0' /><slave name='LCD_CTL_0.avalon_slave' start='0x2001060' end='0x2001064' type='LCD_CTL.avalon_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x2001068' end='0x2001070' type='altera_avalon_jtag_uart.avalon_jtag_slave' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2412,6 +2412,14 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
+    <moduleName>LCD_CTL_0</moduleName>
+    <slaveName>avalon_slave</slaveName>
+    <name>LCD_CTL_0.avalon_slave</name>
+    <baseAddress>33558624</baseAddress>
+    <span>4</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
     <moduleName>GPIO</moduleName>
     <slaveName>avalon_slave_0</slaveName>
     <name>GPIO.avalon_slave_0</name>
@@ -2425,14 +2433,6 @@ parameters are a RESULT of the module parameters. -->
     <name>GPIO_LCD.avalon_slave_0</name>
     <baseAddress>33558616</baseAddress>
     <span>8</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>LCD_CTL_0</moduleName>
-    <slaveName>avalon_slave_0</slaveName>
-    <name>LCD_CTL_0.avalon_slave_0</name>
-    <baseAddress>33558624</baseAddress>
-    <span>4</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -4487,7 +4487,97 @@ the requested settings for a module instance. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <interface name="avalon_slave_0" kind="avalon_slave" version="18.1">
+  <interface name="clock_sink" kind="clock_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="externallyDriven">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="ptfSchematicName">
+    <type>java.lang.String</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>clock</type>
+   <isStart>false</isStart>
+   <port>
+    <name>Clk_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>clk</role>
+   </port>
+  </interface>
+  <interface name="reset_sink" kind="reset_sink" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="synchronousEdges">
+    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
+    <value>DEASSERT</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>reset</type>
+   <isStart>false</isStart>
+   <port>
+    <name>nReset_i</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>reset_n</role>
+   </port>
+  </interface>
+  <interface name="avalon_slave" kind="avalon_slave" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -4549,7 +4639,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock</value>
+    <value>clock_sink</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4557,7 +4647,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedReset">
     <type>java.lang.String</type>
-    <value>reset_n</value>
+    <value>reset_sink</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4822,6 +4912,12 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon</type>
    <isStart>false</isStart>
    <port>
+    <name>waitRequest_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>waitrequest</role>
+   </port>
+   <port>
     <name>Address_i</name>
     <direction>Input</direction>
     <width>1</width>
@@ -4845,12 +4941,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>write</role>
    </port>
-   <port>
-    <name>waitRequest_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>waitrequest</role>
-   </port>
   </interface>
   <interface name="conduit_end" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
@@ -4858,7 +4948,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value></value>
+    <value>clock_sink</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4866,7 +4956,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedReset">
     <type>java.lang.String</type>
-    <value></value>
+    <value>reset_sink</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4891,112 +4981,22 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>WR_n_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>wr_n</role>
-   </port>
-   <port>
-    <name>D_C_n_o</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>data_com_n</role>
-   </port>
-   <port>
     <name>DB_o</name>
     <direction>Output</direction>
     <width>16</width>
     <role>data_lcd</role>
    </port>
-  </interface>
-  <interface name="reset_n" kind="reset_sink" version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clock</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="synchronousEdges">
-    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
-    <value>DEASSERT</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>reset</type>
-   <isStart>false</isStart>
    <port>
-    <name>nReset_i</name>
-    <direction>Input</direction>
+    <name>D_C_n_o</name>
+    <direction>Output</direction>
     <width>1</width>
-    <role>reset_n</role>
+    <role>d_c_n</role>
    </port>
-  </interface>
-  <interface name="clock" kind="clock_sink" version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>false</isStart>
    <port>
-    <name>Clk_i</name>
-    <direction>Input</direction>
+    <name>WR_n_o</name>
+    <direction>Output</direction>
     <width>1</width>
-    <role>clk</role>
+    <role>wr_n</role>
    </port>
   </interface>
  </module>
@@ -7858,8 +7858,8 @@ parameters are a RESULT of the module parameters. -->
    <clockDomainMember>
     <isBridge>false</isBridge>
     <moduleName>LCD_CTL_0</moduleName>
-    <slaveName>clock</slaveName>
-    <name>LCD_CTL_0.clock</name>
+    <slaveName>clock_sink</slaveName>
+    <name>LCD_CTL_0.clock_sink</name>
    </clockDomainMember>
   </interface>
   <interface name="c2" kind="clock_source" version="18.1">
@@ -8996,7 +8996,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1729083960</value>
+   <value>1729700232</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -9016,7 +9016,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1729083960</value>
+   <value>1729700232</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -9032,7 +9032,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1729083960</value>
+   <value>1729700232</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -10323,6 +10323,57 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_jtag_slave</endConnectionPoint>
  </connection>
  <connection
+   name="CPU.data_master/LCD_CTL_0.avalon_slave"
+   kind="avalon"
+   version="18.1"
+   start="CPU.data_master"
+   end="LCD_CTL_0.avalon_slave">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x02001060</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>CPU</startModule>
+  <startConnectionPoint>data_master</startConnectionPoint>
+  <endModule>LCD_CTL_0</endModule>
+  <endConnectionPoint>avalon_slave</endConnectionPoint>
+ </connection>
+ <connection
    name="CPU.data_master/GPIO.avalon_slave_0"
    kind="avalon"
    version="18.1"
@@ -10422,57 +10473,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>CPU</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>GPIO_LCD</endModule>
-  <endConnectionPoint>avalon_slave_0</endConnectionPoint>
- </connection>
- <connection
-   name="CPU.data_master/LCD_CTL_0.avalon_slave_0"
-   kind="avalon"
-   version="18.1"
-   start="CPU.data_master"
-   end="LCD_CTL_0.avalon_slave_0">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x02001060</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>CPU</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>LCD_CTL_0</endModule>
   <endConnectionPoint>avalon_slave_0</endConnectionPoint>
  </connection>
  <connection
@@ -11022,11 +11022,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="altpll_0.c0/LCD_CTL_0.clock"
+   name="altpll_0.c0/LCD_CTL_0.clock_sink"
    kind="clock"
    version="18.1"
    start="altpll_0.c0"
-   end="LCD_CTL_0.clock">
+   end="LCD_CTL_0.clock_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -11046,7 +11046,7 @@ parameters are a RESULT of the module parameters. -->
   <startModule>altpll_0</startModule>
   <startConnectionPoint>c0</startConnectionPoint>
   <endModule>LCD_CTL_0</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
+  <endConnectionPoint>clock_sink</endConnectionPoint>
  </connection>
  <connection
    name="clk_0.clk/altpll_0.inclk_interface"
@@ -11308,33 +11308,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/LCD_CTL_0.reset_n"
-   kind="reset"
-   version="18.1"
-   start="clk_0.clk_reset"
-   end="LCD_CTL_0.reset_n">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_0</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>LCD_CTL_0</endModule>
-  <endConnectionPoint>reset_n</endConnectionPoint>
- </connection>
- <connection
    name="clk_0.clk_reset/GPIO.reset_sink"
    kind="reset"
    version="18.1"
@@ -11386,6 +11359,33 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>GPIO_LCD</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_0.clk_reset/LCD_CTL_0.reset_sink"
+   kind="reset"
+   version="18.1"
+   start="clk_0.clk_reset"
+   end="LCD_CTL_0.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_0</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>LCD_CTL_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
@@ -11551,33 +11551,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.debug_reset_request/LCD_CTL_0.reset_n"
-   kind="reset"
-   version="18.1"
-   start="CPU.debug_reset_request"
-   end="LCD_CTL_0.reset_n">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>CPU</startModule>
-  <startConnectionPoint>debug_reset_request</startConnectionPoint>
-  <endModule>LCD_CTL_0</endModule>
-  <endConnectionPoint>reset_n</endConnectionPoint>
- </connection>
- <connection
    name="CPU.debug_reset_request/GPIO.reset_sink"
    kind="reset"
    version="18.1"
@@ -11629,6 +11602,33 @@ parameters are a RESULT of the module parameters. -->
   <startModule>CPU</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
   <endModule>GPIO_LCD</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="CPU.debug_reset_request/LCD_CTL_0.reset_sink"
+   kind="reset"
+   version="18.1"
+   start="CPU.debug_reset_request"
+   end="LCD_CTL_0.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>CPU</startModule>
+  <startConnectionPoint>debug_reset_request</startConnectionPoint>
+  <endModule>LCD_CTL_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <plugin>

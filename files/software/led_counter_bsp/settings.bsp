@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>16 oct. 2024 15:10:06</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1729084206686</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>23 oct. 2024 18:20:49</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1729700449884</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>E:\Labo\EmbHard\EmbHard_Phase_1\files\software\led_counter_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\softcore.sopcinfo</SopcDesignFile>
