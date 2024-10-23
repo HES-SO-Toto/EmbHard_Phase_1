@@ -28,7 +28,6 @@ projects_eclipse/*
 *.sof
 *.sopc_builder
 *.summary
-*.tcl
 *.txt # Explicitly add any text files used
 *~
 *example*

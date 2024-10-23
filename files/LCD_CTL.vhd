@@ -26,9 +26,9 @@ ENTITY LCD_CTL IS
 		Clk_i				: IN std_logic;
 		nReset_i 		: IN std_logic;
 		Address_i 		: IN std_logic;
-		Start_i 			: IN std_logic;
+		ChipSelect_i 	: IN std_logic;
+		Write_i 			: IN std_logic;
 		WriteData_i 	: IN std_logic_vector (N-1 DOWNTO 0);
-		
 		
 		waitRequest_o	: out std_logic;
 		
