@@ -50,8 +50,7 @@ architecture rtl of DMA_LCD_ctrl is
     -- Components (Nomenclature : name of the component + _c)
     -- TODO add LCD_DMA_c
     -- Types (Nomenclature : name of the type + _t)
-	type state_ctl_t is (IDLE, DMA_ACCESS, LDC_SEND,FINISH);
-	type state_DMA_t is (IDLE, WAIT_FREE_AVALON, ACCESS_SRAM,WAIT_DATA);
+	type state_ctl_t is (IDLE, DMA_ACCESS, WAIT_DMA_VALUE,FINISH);
 	type state_LCD_t is (IDLE, S1, S2,S3);
     -- exemple : type state_t is (idle, start, stop);
 	
@@ -61,22 +60,24 @@ architecture rtl of DMA_LCD_ctrl is
     signal state_fut_ctl_s : state_ctl_t;
 	
     signal pointer_reg_s : std_logic_vector(31 downto 0);
-    signal size_regs_s : std_logic_vector(31 downto 0);
-    signal ctl_reg_s : std_logic_vector(2 downto 0);
-    signal ctl_fut_s : std_logic_vector(2 downto 0);
-    signal status_reg_s : std_logic_vector(2 downto 0);
-    signal status_fut_s : std_logic_vector(2 downto 0);
-	
+    signal size_reg_s : std_logic_vector(31 downto 0);
+    signal status_reg_s : std_logic_vector(31 downto 0);
+    signal status_fut_s : std_logic_vector(31 downto 0);
+    signal cnt				: std_logic_vector(31 downto 0);
+	signal master_read_s : std_logic;
 
     signal D_C_n_reg_s 			: std_logic;
-    signal state_reg_LCD_s 	  	: state_t;
-    signal state_fut_LCD_s 	  	: state_t
+    signal D_C_n_fut_s 			: std_logic;
+    signal state_reg_LCD_s 	  	: state_LCD_t;
+    signal state_fut_LCD_s 	  	: state_LCD_t;
 	signal start_lcd_s			: std_logic;
 	signal start_lcd_DMA_s		: std_logic;
 	signal wait_lcd_s			: std_logic;
     signal WR_n_reg_s 	  	  	: std_logic;
     signal WR_n_fut_s 	  	  	: std_logic;
-    signal DB_reg_s				: std_logic_vector(N-1 DOWNTO 0);
+    signal DB_reg_s				: std_logic_vector(15 DOWNTO 0);
+    signal DB_fut_s				: std_logic_vector(15 DOWNTO 0);
+	
     -- Procedures (Nomenclature : name of the procedure + _p)
 	-- Déclaration of the signals,components,types and procedures
     -- Components (Nomenclature : name of the component + _c)
@@ -91,41 +92,41 @@ begin
 	--
 	Slave_Wr_p : process(Clk_i,reset_n_i)
 	begin
-		start_ldc_s <= '0'
-		if reset_n='0' then
+		start_lcd_s <= '0';
+		if reset_n_i='0' then
 			pointer_reg_s <= (others => '0');
 			size_reg_s <= (others => '0');
-			ctl_reg_s <= (others => '0');
-		elsif rising_edge(Clk) then
-			ctl_reg_s <= ctl_fut_s;
+		elsif rising_edge(Clk_i) then
 			status_reg_s <= status_fut_s;
-			if avalon_cs = '1' and avalon_wr = '1' then -- Write cycle
+			if avalon_cs_i = '1' and avalon_wr_i = '1' then -- Write cycle
 				case avalon_address_i(2 downto 0) is
-					when "000" => 
-						start_lcd_s => '1';
-					when "001" => 
-						start_lcd_s => '1';
-					when "010" => pointer_reg_s <= WriteData;
-					when "011" => size_reg_s <= WriteData;
+					when "000" => start_lcd_s <= '1';
+					when "001" => start_lcd_s <= '1';
+					when "010" => pointer_reg_s <= avalon_write_data_i;
+					when "011" => size_reg_s <= avalon_write_data_i;
 					when "100" => 
 						status_reg_s(0) <= '0';
-						status_reg_s(1) <= WriteData(0);
-						status_reg_s(2) <= '0' when WriteData(2) = '1' else status_fut_s(2);
+						status_reg_s(1) <= avalon_write_data_i(0);
+						if  avalon_write_data_i(2) = '1' then
+							status_reg_s(2) <= '0';
+						else
+							status_reg_s(2) <= status_fut_s(2);
+						end if;
 					when others => null;
 				end case;
 			end if; 
 		end if; 
 	end process Slave_Wr_p;
  
-	Slave_Rd_p: process(Clk)
+	Slave_Rd_p: process(clk_i)
 	begin
-		if rising_edge(clk) then
-			master_readdata <= (others => '0'); -- default value
-			if ChipSelect = '1' and avalon_rd = '1' then -- Read cycle
+		if rising_edge(clk_i) then
+			avalon_read_data_o <= (others => '0'); -- default value
+			if avalon_cs_i = '1' and avalon_rd_i = '1' then -- Read cycle
 				case avalon_address_i(2 downto 0) is
-					when "010" => master_readdata <= pointer_reg_s;
-					when "011" => master_readdata <= size_reg_s;
-					when "101" => master_readdata <=(2 downto 0 => status_reg_s, others => '0');
+					when "010" => avalon_read_data_o <= pointer_reg_s;
+					when "011" => avalon_read_data_o <= size_reg_s;
+					when "101" => avalon_read_data_o <= status_reg_s;
 					when others => null;
 				end case;
 			end if;
@@ -137,36 +138,36 @@ begin
 	
 	pState_update : process(all)
 	begin
-	  if reset_n='0' then
+	  if reset_n_i='0' then
 			state_reg_ctl_s <= IDLE;
-	  elsif rising_edge(Clk) then
-            state_reg_ctl_s  <= state_fut_ctl_s;
-			status_reg_s <= status_fut_s
+	  elsif rising_edge(clk_i) then
+			state_reg_ctl_s  <= state_fut_ctl_s;
+			status_reg_s <= status_fut_s;
 	  end if; 
 	end process pState_update;
 
-    decode_CTL_state : process(all)
+   decode_CTL_state : process(all)
 	begin
-      state_fut_ctl_s <= state_reg_ctl_s;
+     state_fut_ctl_s <= state_reg_ctl_s;
 	  master_read_s <= '0';
 	  start_lcd_DMA_s <= '0';
 	  case state_reg_ctl_s is
 			when IDLE =>
-				cnt <= pointer_reg_s; --need to be convert
+				cnt <= pointer_reg_s;
 				if status_reg_s(1) = '1' then 
 					state_fut_ctl_s <= DMA_ACCESS;
 				else
 					state_fut_ctl_s <= IDLE;
-				end if 
+				end if;
 			when DMA_ACCESS =>
 				if state_reg_LCD_s = IDLE then 
                 	state_fut_ctl_s <= WAIT_DMA_VALUE;
 					master_read_s <= '1'; --Start ram TODO 
 				else 
                 	state_fut_ctl_s <= DMA_ACCESS;
-				end if
+				end if;
 			when WAIT_DMA_VALUE =>
-				if master_waitrequest = '1' then 
+				if master_waitrequest_i = '1' then 
 					state_fut_ctl_s <= WAIT_DMA_VALUE;
 					master_read_s <= '1';
 				else
@@ -175,22 +176,21 @@ begin
 						state_fut_ctl_s <= FINISH;
 					else
 						state_fut_ctl_s <= DMA_ACCESS;
-						cnt <= std_logic_vector(unsigned(cnt) + x"00000002")
-					end if 
-				end if
+						cnt <= std_logic_vector(unsigned(cnt) + x"00000002");
+					end if;
+				end if;
 			when FINISH =>
                 --irq enable TODO
-				status_fut_s(0) <= '1';--done
-				status_fut_s(1) <= '0'; 
+						status_fut_s(0) <= '1';--done
+						status_fut_s(1) <= '0'; 
                 status_fut_s(2) <= '1'; --IQR
                 state_fut_ctl_s <= IDLE;
-			when others => 
-			    state_fut_ctl_s <= IDLE;
+			when others => state_fut_ctl_s <= IDLE;
 	  end case;
-	end process;
+	end process decode_CTL_state;
 
 	end_of_transaction_irq_o <= status_reg_s(2);
-    master_address_o <= pointer_reg_s + cnt;
+    master_address_o <= cnt;
     master_read_o <= master_read_s;
 
 	--======================== LDC ===========================
@@ -200,7 +200,7 @@ begin
 	reg_wr_process :
 	process(all)
 	begin
-	  if nReset_i='0' then
+	  if reset_n_i='0' then
 			state_reg_LCD_s		<= idle;
 			WR_n_reg_s 			<= '0';
 			D_C_n_reg_s			<= '0';
@@ -208,14 +208,14 @@ begin
 	  elsif rising_edge(Clk_i) then
 			D_C_n_reg_s			<= D_C_n_fut_s;
 			DB_reg_s			<= DB_fut_s;
-			state_reg_LCD_s 	<= state_fut_s;
+			state_reg_LCD_s 	<= state_reg_LCD_s;
 			WR_n_reg_s			<= WR_n_fut_s;
 	  end if; 
 	end process;
 	
 	decode_state : process(all)
 	begin
-	  	state_fut_s 	<= state_reg_LCD_s;
+	  	state_fut_LCD_s 	<= state_reg_LCD_s;
 	  	WR_n_fut_s 		<= '1';
 		wait_lcd_s 		<= '1';
 		DB_fut_s 		<= DB_reg_s;
@@ -224,26 +224,25 @@ begin
 				when IDLE =>
 					if state_reg_ctl_s = IDLE then
 						D_C_n_fut_s <= avalon_address_i(0); --adress slave
-						DB_fut_s <= slave_WriteData(15 downto 0);
+						DB_fut_s <= avalon_write_data_i(15 downto 0);
 					else
 						D_C_n_fut_s <= '1';
-						DB_fut_s <= master_ReadData(15 downto 0);
-					end if 
+						DB_fut_s <= master_readdata_i(15 downto 0);
+					end if;
 					wait_lcd_s <= '0';
 					if start_lcd_s = '1' or start_lcd_DMA_s = '1' then 
-						state_fut_s <= S1;
+						state_fut_LCD_s <= S1;
 						WR_n_fut_s <= '0';
 					end if;
 				when S1 =>
-					state_fut_s <= S2;
+					state_fut_LCD_s <= S2;
 				when S2 =>
-					state_fut_s <= S3;
+					state_fut_LCD_s <= S3;
 				when S3 =>
 					wait_lcd_s <= '0';
-					state_fut_s <= IDLE;
+					state_fut_LCD_s <= IDLE;
 				when others => 
-					wait_lcd_s <= '0';
-					state_fut_s <= IDLE;
+					state_fut_LCD_s <= IDLE;
 		end case;
 	end process;
 
