@@ -33,7 +33,6 @@ projects_eclipse/*
 *~
 *example*
 *sopc_*
-db
 # *.sdc # I want those timing files
 
 # ignore Quartus II generated folders
@@ -42,6 +41,8 @@ db
 */timing/
 */testbench/
 */*_sim/
+db/*
+*/softcore/*
 incremental_db/
 output_files/
 PLLJ_PLLSPE_INFO.txt
