@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'softcore'
  * SOPC Builder design path: ../../softcore.sopcinfo
  *
- * Generated: Wed Oct 23 18:20:51 CEST 2024
+ * Generated: Thu Oct 24 00:59:24 CEST 2024
  */
 
 /*
@@ -148,7 +148,7 @@
 #define __ALTERA_NIOS2_GEN2
 #define __ALTPLL
 #define __GPIO
-#define __LCD_CTL
+#define __LCD_DMA
 
 
 /*
@@ -171,7 +171,7 @@
  */
 
 #define ALT_MODULE_CLASS_GPIO_LCD GPIO
-#define GPIO_LCD_BASE 0x2001058
+#define GPIO_LCD_BASE 0x2001080
 #define GPIO_LCD_IRQ -1
 #define GPIO_LCD_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define GPIO_LCD_NAME "/dev/GPIO_LCD"
@@ -180,17 +180,17 @@
 
 
 /*
- * LCD_CTL_0 configuration
+ * LCD_DMA_0 configuration
  *
  */
 
-#define ALT_MODULE_CLASS_LCD_CTL_0 LCD_CTL
-#define LCD_CTL_0_BASE 0x2001060
-#define LCD_CTL_0_IRQ -1
-#define LCD_CTL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define LCD_CTL_0_NAME "/dev/LCD_CTL_0"
-#define LCD_CTL_0_SPAN 4
-#define LCD_CTL_0_TYPE "LCD_CTL"
+#define ALT_MODULE_CLASS_LCD_DMA_0 LCD_DMA
+#define LCD_DMA_0_BASE 0x2001040
+#define LCD_DMA_0_IRQ -1
+#define LCD_DMA_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define LCD_DMA_0_NAME "/dev/LCD_DMA_0"
+#define LCD_DMA_0_SPAN 32
+#define LCD_DMA_0_TYPE "LCD_DMA"
 
 
 /*
@@ -273,7 +273,7 @@
  *
  */
 
-#define ALTPLL_0_BASE 0x2001040
+#define ALTPLL_0_BASE 0x2001070
 #define ALTPLL_0_IRQ -1
 #define ALTPLL_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define ALTPLL_0_NAME "/dev/altpll_0"
@@ -300,7 +300,7 @@
 
 #define ALT_MODULE_CLASS_jtag_uart altera_avalon_jtag_uart
 #define JTAG_UART_BASE 0x2001068
-#define JTAG_UART_IRQ 1
+#define JTAG_UART_IRQ 2
 #define JTAG_UART_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define JTAG_UART_NAME "/dev/jtag_uart"
 #define JTAG_UART_READ_DEPTH 64
@@ -317,13 +317,13 @@
  */
 
 #define ALT_MODULE_CLASS_sysid_qsys_0 altera_avalon_sysid_qsys
-#define SYSID_QSYS_0_BASE 0x2001050
+#define SYSID_QSYS_0_BASE 0x2001060
 #define SYSID_QSYS_0_ID 0
 #define SYSID_QSYS_0_IRQ -1
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1729694199
+#define SYSID_QSYS_0_TIMESTAMP 1729723894
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -338,7 +338,7 @@
 #define TIMER_0_COUNTER_SIZE 32
 #define TIMER_0_FIXED_PERIOD 0
 #define TIMER_0_FREQ 50000000
-#define TIMER_0_IRQ 0
+#define TIMER_0_IRQ 1
 #define TIMER_0_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define TIMER_0_LOAD_VALUE 499999
 #define TIMER_0_MULT 0.001

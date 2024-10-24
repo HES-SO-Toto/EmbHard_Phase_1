@@ -87,7 +87,7 @@ begin
 	decode_state : process(ChipSelect_i,Write_i,state_pres_s)
 	begin
 	  state_fut_s <= state_pres_s;
-	  waitRequest_fut_s <= '1';
+	  waitRequest_fut_s <= '0';
 	  WR_n_fut_s <= '1';
 	  case state_pres_s is
 			when IDLE =>

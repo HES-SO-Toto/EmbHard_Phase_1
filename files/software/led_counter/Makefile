@@ -142,7 +142,7 @@ ACDS_VERSION := 18.1
 ELF := led_counter.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS := counter.c
+C_SRCS :=
 CXX_SRCS :=
 ASM_SRCS :=
 
