@@ -4,7 +4,7 @@
  * Machine generated for CPU 'CPU' in SOPC Builder design 'softcore'
  * SOPC Builder design path: ../../softcore.sopcinfo
  *
- * Generated: Thu Oct 24 23:27:19 CEST 2024
+ * Generated: Sat Oct 26 00:41:50 CEST 2024
  */
 
 /*
@@ -157,7 +157,7 @@
  */
 
 #define ALT_MODULE_CLASS_GPIO GPIO
-#define GPIO_BASE 0x2001040
+#define GPIO_BASE 0x2001020
 #define GPIO_IRQ -1
 #define GPIO_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define GPIO_NAME "/dev/GPIO"
@@ -180,17 +180,17 @@
 
 
 /*
- * LCD_DMA_2_0 configuration
+ * LCD_DMA_2 configuration
  *
  */
 
-#define ALT_MODULE_CLASS_LCD_DMA_2_0 LCD_DMA
-#define LCD_DMA_2_0_BASE 0x2001000
-#define LCD_DMA_2_0_IRQ 2
-#define LCD_DMA_2_0_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define LCD_DMA_2_0_NAME "/dev/LCD_DMA_2_0"
-#define LCD_DMA_2_0_SPAN 32
-#define LCD_DMA_2_0_TYPE "LCD_DMA"
+#define ALT_MODULE_CLASS_LCD_DMA_2 LCD_DMA
+#define LCD_DMA_2_BASE 0x2001040
+#define LCD_DMA_2_IRQ 2
+#define LCD_DMA_2_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define LCD_DMA_2_NAME "/dev/LCD_DMA_2"
+#define LCD_DMA_2_SPAN 32
+#define LCD_DMA_2_TYPE "LCD_DMA"
 
 
 /*
@@ -323,7 +323,7 @@
 #define SYSID_QSYS_0_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_0_NAME "/dev/sysid_qsys_0"
 #define SYSID_QSYS_0_SPAN 8
-#define SYSID_QSYS_0_TIMESTAMP 1729804459
+#define SYSID_QSYS_0_TIMESTAMP 1729895835
 #define SYSID_QSYS_0_TYPE "altera_avalon_sysid_qsys"
 
 
@@ -334,7 +334,7 @@
 
 #define ALT_MODULE_CLASS_timer_0 altera_avalon_timer
 #define TIMER_0_ALWAYS_RUN 0
-#define TIMER_0_BASE 0x2001020
+#define TIMER_0_BASE 0x2001000
 #define TIMER_0_COUNTER_SIZE 32
 #define TIMER_0_FIXED_PERIOD 0
 #define TIMER_0_FREQ 50000000

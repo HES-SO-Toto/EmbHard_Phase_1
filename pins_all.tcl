@@ -132,7 +132,7 @@
 	 
 #### BUTTONS
 
-      set_location_assignment PIN_H11  -to BUTTONS[0]	
+    set_location_assignment PIN_H11  -to BUTTONS[0]	
 	 set_location_assignment PIN_G10  -to BUTTONS[1]	
 	 set_location_assignment PIN_G7   -to BUTTONS[2]	
 	 set_location_assignment PIN_E9   -to BUTTONS[3]	

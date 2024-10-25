@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include "img/img.h"
 
-#define TIMING_TEST
 enum GPIO_REG {
   DIR =0,
   PIN =4,
@@ -47,9 +46,8 @@ enum LCD_REG {
 
 long counter=0;
 long counter_int= 0;
-long counter_lim= 64;
+long counter_lim= 150;
 int dma_end_flag=0;
-int dma = 1;
 
 void int_timer_interrupt(void);
 static void time_isr(void * context, alt_u32 id);
@@ -68,29 +66,35 @@ static const alt_u16 images[]  = {
 };
 int main()
 {
-	IOWR_32DIRECT(GPIO_BASE,DIR,0xFFFFFFFF); //Set all pin in out : 0ffset
+	printf("Lets start counting\n");
+	IOWR_32DIRECT(GPIO_BASE,DIR,0xFFFFFF); //Set all pin in out : 0ffset
 	IOWR_8DIRECT(GPIO_LCD_BASE,LCD_DIR,0x0D); //Set all pin in out : 0ffset
-	alt_irq_register(TIMER_0_IRQ, NULL, (alt_isr_func)time_isr);
+
 	IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_0_BASE ,ALTERA_AVALON_TIMER_CONTROL_CONT_MSK
 												|ALTERA_AVALON_TIMER_CONTROL_START_MSK
 												|ALTERA_AVALON_TIMER_CONTROL_ITO_MSK);
-#ifdef TIMING_TEST
+
+
+	LCD_DMA_Pointer((int)&images);
+	LCD_DMA_Size(240*320*2);
+	alt_irq_register(TIMER_0_IRQ, NULL, (alt_isr_func)time_isr);
+	alt_irq_register(LCD_DMA_2_0_IRQ, NULL, (alt_isr_func)dma_isr);
 	init_LCD();
+	counter_int = 0 ;
+	while(counter_int<500);
+	counter_int = 0 ;
+	LCD_RGB();
 	while(counter_int<1000);
+	printf("start DMA\n");
 	counter_int = 0 ;
 	LCD_DMA_Pointer((int)&images);
 	LCD_DMA_Size(240*320*2);
-	alt_irq_register(LCD_DMA_2_IRQ, NULL, (alt_isr_func)dma_isr);
-	LCD_Write_Command(0x002C);
-	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_CTL,0x05);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_CTL,0x05);
 	while(!dma_end_flag);
-	printf("time DMA %lu ms\n",counter_int);
-	while(counter_int<1000);
-	dma_end_flag = 0;
-	counter_int = 0 ;
-	LCD_RGB();
-	while(counter_int<2000);
-#endif
+	printf("time DMA %lu ms",counter_int);
+	while(counter_int<5000);
+
+	int dma = 1;
 	int i = 0;
 	int pin_lcd = 0;
 	while(1)
@@ -106,7 +110,7 @@ int main()
 			LCD_DMA_Pointer(rick[i]);
 			LCD_DMA_Size(240*320*2);
 			LCD_Write_Command(0x002C);
-			IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_CTL,0x05);
+			IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_CTL,0x05);
 			while(!dma_end_flag);
 			dma_end_flag = 0;
 		}
@@ -117,13 +121,13 @@ int main()
 			if(!(pin_lcd&0x02))
 				dma ^=1;
 			if(!(pin_lcd&0x10))
-				counter_lim = counter_lim>>1;
+				counter_lim = counter_lim+10;
 			if(!(pin_lcd&0x20))
-				counter_lim = counter_lim<<1;
-			if(counter_lim<2)
-				counter_lim = 2;
-			if(counter_lim>256)
-				counter_lim = 256;
+				counter_lim = counter_lim-10;
+			if(counter_lim<10)
+				counter_lim = 10;
+			if(counter_lim>1000)
+				counter_lim = 1000;
 		}
 		while(counter_int<counter_lim);
 		i = (i+1)%18;
@@ -137,7 +141,7 @@ static void time_isr(void * context, alt_u32 id)
 	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_0_BASE,0);
 	counter++;
 	counter_int++;
-	IOWR_32DIRECT(GPIO_BASE,PORT,counter_int|dma<<31|counter_lim<<16);
+	IOWR_32DIRECT(GPIO_BASE,PORT,counter_int);
 }
 
 static void dma_isr(void * context, alt_u32 id)
@@ -146,14 +150,13 @@ static void dma_isr(void * context, alt_u32 id)
 	LCD_DMA_IRQ_ACK();
 }
 void init_LCD() {
-	  counter=0;
+
       IOWR_8DIRECT(GPIO_LCD_BASE,LCD_PORT,LCD_RD_n); // set reset on and 16 bits mode
-      while (counter<2000){}   // include delay of at least 120 ms use your timer or a loop
+      while (counter<1000){}   // include delay of at least 120 ms use your timer or a loop
       IOWR_8DIRECT(GPIO_LCD_BASE,LCD_CLR,LCD_IM0); // set reset off and 16 bits mode and enable LED_CS
       IOWR_8DIRECT(GPIO_LCD_BASE,LCD_SET,LCD_RESET_n|LCD_RD_n); // set reset off and 16 bits mode and enable LED_CS
       printf("%u\n",IORD_8DIRECT(GPIO_LCD_BASE,LCD_PIN));
-	  counter=0;
-      while (counter<2000){}   // include delay of at least 120 ms use your timer or a loop
+      while (counter<1000){}   // include delay of at least 120 ms use your timer or a loop
 
       LCD_Write_Command(0x0028);     //display OFF
       LCD_Write_Command(0x0011);     //exit SLEEP mode
@@ -240,24 +243,24 @@ void init_LCD() {
 }
 
 void LCD_Write_Command(int command) {
-  IOWR_32DIRECT(LCD_DMA_2_BASE,LCD_COMMANDE,command);
+  IOWR_32DIRECT(LCD_DMA_2_0_BASE,LCD_COMMANDE,command);
 }
 
 void LCD_Write_Data(int data) {
-	IOWR_32DIRECT(LCD_DMA_2_BASE,LCD_DATA,data);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,LCD_DATA,data);
 }
 void LCD_DMA_Size(int data) {
-	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_SIZE,data);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_SIZE,data);
 }
 void LCD_DMA_Pointer(int data) {
-	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_POINTER,data+16);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_POINTER,data+16);
 }
 
 void LCD_DMA_IRQ_ACK() {
-	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_CTL,0x04);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_CTL,0x04);
 }
 void LCD_DMA_Start() {
-	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_CTL,0x01);
+	IOWR_32DIRECT(LCD_DMA_2_0_BASE,DMA_CTL,0x01);
 }
 void LCD_dram_image(alt_u16* image)
 {
@@ -276,19 +279,18 @@ void LCD_RGB()
 		LCD_Write_Data(0x07E0);
 	}
 	printf("time %lu ms\n",counter_int);
-
 	while(counter_int<500);
-	counter_int = 0 ;
 
+
+	counter_int = 0 ;
 	LCD_Write_Command(0x002C);
 	for(int i = 0; i<(240*320);i++ )
 	{
 		LCD_Write_Data(0x001F);
 	}
 	printf("time %lu ms\n",counter_int);
-
-	while(counter_int<500);
 	counter_int = 0 ;
+	while(counter_int<500);
 
 	LCD_Write_Command(0x002C);
 	for(int i = 0; i<(240*320);i++ )

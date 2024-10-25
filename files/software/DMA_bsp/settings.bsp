@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>24 oct. 2024 23:27:17</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1729805237617</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>26 oct. 2024 00:43:55</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1729896235926</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>E:\Labo\EmbHard\EmbHard_Phase_1\files\software\DMA_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\softcore.sopcinfo</SopcDesignFile>
@@ -905,19 +905,19 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>LCD_DMA_2_0</slaveDescriptor>
-                <addressRange>0x02001000 - 0x0200101F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
                 <slaveDescriptor>timer_0</slaveDescriptor>
-                <addressRange>0x02001020 - 0x0200103F</addressRange>
+                <addressRange>0x02001000 - 0x0200101F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes>timer</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>GPIO</slaveDescriptor>
+                <addressRange>0x02001020 - 0x0200103F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>LCD_DMA_2</slaveDescriptor>
                 <addressRange>0x02001040 - 0x0200105F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EnsembleReport name="softcore" kind="softcore" version="1.0" fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2024.10.24.23:14:19 -->
+ <!-- 2024.10.26.00:37:15 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1729804459</value>
+  <value>1729895835</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1730,7 +1730,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='LCD_DMA_2_0.avalon' start='0x2001000' end='0x2001020' type='LCD_DMA.avalon' /><slave name='timer_0.s1' start='0x2001020' end='0x2001040' type='altera_avalon_timer.s1' /><slave name='GPIO.avalon_slave_0' start='0x2001040' end='0x2001060' type='GPIO.avalon_slave_0' /><slave name='sysid_qsys_0.control_slave' start='0x2001060' end='0x2001068' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x2001068' end='0x2001070' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='altpll_0.pll_slave' start='0x2001070' end='0x2001080' type='altpll.pll_slave' /><slave name='GPIO_LCD.avalon_slave_0' start='0x2001080' end='0x2001088' type='GPIO.avalon_slave_0' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='SDRAM_controller.s1' start='0x1000000' end='0x2000000' type='altera_avalon_new_sdram_controller.s1' /><slave name='CPU.debug_mem_slave' start='0x2000800' end='0x2001000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='timer_0.s1' start='0x2001000' end='0x2001020' type='altera_avalon_timer.s1' /><slave name='GPIO.avalon_slave_0' start='0x2001020' end='0x2001040' type='GPIO.avalon_slave_0' /><slave name='LCD_DMA_2.avalon' start='0x2001040' end='0x2001060' type='LCD_DMA.avalon' /><slave name='sysid_qsys_0.control_slave' start='0x2001060' end='0x2001068' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart.avalon_jtag_slave' start='0x2001068' end='0x2001070' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='altpll_0.pll_slave' start='0x2001070' end='0x2001080' type='altpll.pll_slave' /><slave name='GPIO_LCD.avalon_slave_0' start='0x2001080' end='0x2001088' type='GPIO.avalon_slave_0' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -2404,10 +2404,10 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>LCD_DMA_2_0</moduleName>
+    <moduleName>LCD_DMA_2</moduleName>
     <slaveName>avalon</slaveName>
-    <name>LCD_DMA_2_0.avalon</name>
-    <baseAddress>33558528</baseAddress>
+    <name>LCD_DMA_2.avalon</name>
+    <baseAddress>33558592</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -2423,7 +2423,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>GPIO</moduleName>
     <slaveName>avalon_slave_0</slaveName>
     <name>GPIO.avalon_slave_0</name>
-    <baseAddress>33558592</baseAddress>
+    <baseAddress>33558560</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -2471,7 +2471,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>timer_0</moduleName>
     <slaveName>s1</slaveName>
     <name>timer_0.s1</name>
-    <baseAddress>33558560</baseAddress>
+    <baseAddress>33558528</baseAddress>
     <span>32</span>
    </memoryBlock>
   </interface>
@@ -2854,9 +2854,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>LCD_DMA_2_0</moduleName>
+    <moduleName>LCD_DMA_2</moduleName>
     <slaveName>interrupt_sender</slaveName>
-    <name>LCD_DMA_2_0.interrupt_sender</name>
+    <name>LCD_DMA_2.interrupt_sender</name>
     <interruptNumber>2</interruptNumber>
    </interrupt>
    <interrupt>
@@ -4467,7 +4467,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="LCD_DMA_2_0" kind="LCD_DMA" version="2.0" path="LCD_DMA_2_0">
+ <module name="LCD_DMA_2" kind="LCD_DMA" version="2.3" path="LCD_DMA_2">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -4877,7 +4877,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>LCD_DMA_2_0.avalon</value>
+    <value>LCD_DMA_2.avalon</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -8246,9 +8246,9 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>LCD_DMA_2_0</moduleName>
+    <moduleName>LCD_DMA_2</moduleName>
     <slaveName>clock_sink</slaveName>
-    <name>LCD_DMA_2_0.clock_sink</name>
+    <name>LCD_DMA_2.clock_sink</name>
    </clockDomainMember>
   </interface>
   <interface name="c2" kind="clock_source" version="18.1">
@@ -9385,7 +9385,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1729804459</value>
+   <value>1729895835</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -9405,7 +9405,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1729804459</value>
+   <value>1729895835</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -9421,7 +9421,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1729804459</value>
+   <value>1729895835</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -10661,10 +10661,10 @@ parameters are a RESULT of the module parameters. -->
   </interface>
  </module>
  <connection
-   name="LCD_DMA_2_0.avalon_master/SDRAM_controller.s1"
+   name="LCD_DMA_2.avalon_master/SDRAM_controller.s1"
    kind="avalon"
    version="18.1"
-   start="LCD_DMA_2_0.avalon_master"
+   start="LCD_DMA_2.avalon_master"
    end="SDRAM_controller.s1">
   <parameter name="arbitrationPriority">
    <type>int</type>
@@ -10706,17 +10706,17 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>LCD_DMA_2_0</startModule>
+  <startModule>LCD_DMA_2</startModule>
   <startConnectionPoint>avalon_master</startConnectionPoint>
   <endModule>SDRAM_controller</endModule>
   <endConnectionPoint>s1</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.data_master/LCD_DMA_2_0.avalon"
+   name="CPU.data_master/LCD_DMA_2.avalon"
    kind="avalon"
    version="18.1"
    start="CPU.data_master"
-   end="LCD_DMA_2_0.avalon">
+   end="LCD_DMA_2.avalon">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -10727,7 +10727,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x02001000</value>
+   <value>0x02001040</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -10759,7 +10759,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>CPU</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>LCD_DMA_2_0</endModule>
+  <endModule>LCD_DMA_2</endModule>
   <endConnectionPoint>avalon</endConnectionPoint>
  </connection>
  <connection
@@ -10829,7 +10829,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x02001040</value>
+   <value>0x02001020</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11135,7 +11135,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x02001020</value>
+   <value>0x02001000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11462,11 +11462,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="altpll_0.c0/LCD_DMA_2_0.clock_sink"
+   name="altpll_0.c0/LCD_DMA_2.clock_sink"
    kind="clock"
    version="18.1"
    start="altpll_0.c0"
-   end="LCD_DMA_2_0.clock_sink">
+   end="LCD_DMA_2.clock_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -11485,7 +11485,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>altpll_0</startModule>
   <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>LCD_DMA_2_0</endModule>
+  <endModule>LCD_DMA_2</endModule>
   <endConnectionPoint>clock_sink</endConnectionPoint>
  </connection>
  <connection
@@ -11516,11 +11516,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>inclk_interface</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.irq/LCD_DMA_2_0.interrupt_sender"
+   name="CPU.irq/LCD_DMA_2.interrupt_sender"
    kind="interrupt"
    version="18.1"
    start="CPU.irq"
-   end="LCD_DMA_2_0.interrupt_sender">
+   end="LCD_DMA_2.interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
    <value>2</value>
@@ -11547,7 +11547,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>CPU</startModule>
   <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>LCD_DMA_2_0</endModule>
+  <endModule>LCD_DMA_2</endModule>
   <endConnectionPoint>interrupt_sender</endConnectionPoint>
  </connection>
  <connection
@@ -11837,11 +11837,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_0.clk_reset/LCD_DMA_2_0.reset_sink"
+   name="clk_0.clk_reset/LCD_DMA_2.reset_sink"
    kind="reset"
    version="18.1"
    start="clk_0.clk_reset"
-   end="LCD_DMA_2_0.reset_sink">
+   end="LCD_DMA_2.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -11860,7 +11860,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_0</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>LCD_DMA_2_0</endModule>
+  <endModule>LCD_DMA_2</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
@@ -12080,11 +12080,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="CPU.debug_reset_request/LCD_DMA_2_0.reset_sink"
+   name="CPU.debug_reset_request/LCD_DMA_2.reset_sink"
    kind="reset"
    version="18.1"
    start="CPU.debug_reset_request"
-   end="LCD_DMA_2_0.reset_sink">
+   end="LCD_DMA_2.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -12103,7 +12103,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>CPU</startModule>
   <startConnectionPoint>debug_reset_request</startConnectionPoint>
-  <endModule>LCD_DMA_2_0</endModule>
+  <endModule>LCD_DMA_2</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <plugin>
@@ -12192,7 +12192,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>LCD_DMA</displayName>
-  <version>2.0</version>
+  <version>2.3</version>
  </plugin>
  <plugin>
   <instanceCount>3</instanceCount>

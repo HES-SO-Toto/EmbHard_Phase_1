@@ -233,10 +233,6 @@ begin
 						WR_n_fut_s <= '0';
 						state_fut_LCD_s <= S1;
 					end if;
-				when S1 =>
-					waitRequest_s <= '1';
-					WR_n_fut_s <= '0';
-					state_fut_LCD_s <= S2;
 				when S2 =>
 					waitRequest_s <= '1';
 	  				WR_n_fut_s <= '1';
