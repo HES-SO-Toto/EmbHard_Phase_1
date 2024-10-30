@@ -76,15 +76,16 @@ int main()
 												|ALTERA_AVALON_TIMER_CONTROL_ITO_MSK);
 #ifdef TIMING_TEST
 	init_LCD();
-	while(counter_int<1000);
+	while(counter_int<2000);
 	counter_int = 0 ;
+	dma_end_flag = 0;
 	LCD_DMA_Pointer((int)&images);
 	LCD_DMA_Size(240*320*2);
 	alt_irq_register(LCD_DMA_2_IRQ, NULL, (alt_isr_func)dma_isr);
 	LCD_Write_Command(0x002C);
 	IOWR_32DIRECT(LCD_DMA_2_BASE,DMA_CTL,0x05);
 	while(!dma_end_flag);
-	printf("time DMA %lu ms\n",counter_int);
+	printf("DMA time %lu ms\n",counter_int);
 	while(counter_int<1000);
 	dma_end_flag = 0;
 	counter_int = 0 ;
@@ -271,10 +272,7 @@ void LCD_RGB()
 	printf("start No DMA\n");
 	counter_int = 0 ;
 	LCD_Write_Command(0x002C);
-	for(int i = 0; i<(240*320);i++ )
-	{
-		LCD_Write_Data(0x07E0);
-	}
+	LCD_dram_image(rick[0]);
 	printf("time %lu ms\n",counter_int);
 
 	while(counter_int<500);
